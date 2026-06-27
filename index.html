@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI赋能教学实操培训 · 讲师投屏</title>
+<link rel="stylesheet" href="./assets/style.css">
+<style>
+/* ===== 讲师端 PPT 化独有样式 ===== */
+body { background: var(--bg); }
+.main { max-width: 1100px; padding: 32px 48px 80px; }
+
+/* PPT 页：一屏一主题大卡片 */
+.slide { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 48px 56px; margin-bottom: 32px; box-shadow: var(--shadow-md); min-height: 58vh; display: flex; flex-direction: column; justify-content: center; scroll-margin-top: 74px; }
+.slide-cover { background: var(--gradient-primary); color: var(--surface); text-align: center; min-height: 72vh; align-items: center; }
+.slide-cover h1 { font-size: 42px; font-weight: 800; margin-bottom: 16px; letter-spacing: -0.02em; }
+.slide-cover .school-name { font-size: 20px; opacity: 0.95; margin-bottom: 32px; }
+.slide-cover .cover-sub { font-size: 16px; opacity: 0.9; }
+.slide-num { position: absolute; top: 20px; right: 28px; font-size: 14px; color: var(--ink-faint); font-weight: 600; }
+.slide-cover .slide-num { color: rgba(255,255,255,0.7); }
+.slide-title { font-size: 32px; font-weight: 800; color: var(--ink); margin-bottom: 8px; letter-spacing: -0.02em; }
+.slide-subtitle { font-size: 17px; color: var(--ink-soft); margin-bottom: 32px; }
+.slide-body { font-size: 17px; line-height: 1.9; color: var(--ink); }
+.slide-body strong { color: var(--primary-dark); }
+
+/* PPT 用的大字公式块 */
+.slide-formula { background: var(--gray-900); color: #e5e7eb; border-radius: var(--radius); padding: 28px 36px; font-size: 22px; font-weight: 600; text-align: center; line-height: 1.7; margin: 24px 0; font-family: var(--font-mono); }
+
+/* PPT 用的大对比卡 */
+.slide-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 24px 0; }
+.slide-compare .compare-card { padding: 24px 28px; font-size: 16px; }
+.slide-compare .compare-label { font-size: 14px; margin-bottom: 12px; }
+.slide-compare .compare-text { font-size: 16px; line-height: 1.7; }
+
+/* PPT 用的大能力卡 */
+.slide-ability { background: var(--surface); border: 1px solid var(--line); border-left: 5px solid var(--primary); border-radius: var(--radius); padding: 22px 26px; margin-bottom: 16px; }
+.slide-ability.highlight { background: var(--accent-light); border-left-color: var(--accent); }
+.slide-ability h4 { font-size: 19px; font-weight: 700; margin-bottom: 8px; color: var(--ink); }
+.slide-ability p { font-size: 15px; color: var(--ink-soft); }
+
+/* PPT 用的知识点科普块 */
+.knowledge-slide-intro { font-size: 19px; line-height: 1.9; color: var(--ink); background: var(--primary-soft); border-left: 5px solid var(--primary); border-radius: 0 var(--radius) var(--radius) 0; padding: 24px 28px; margin-bottom: 24px; }
+.knowledge-slide-metaphor { display: flex; gap: 16px; background: var(--accent-light); border: 1px solid var(--accent-border); border-radius: var(--radius); padding: 20px 24px; margin-bottom: 24px; font-size: 17px; line-height: 1.8; }
+.knowledge-slide-metaphor .mi { font-size: 32px; flex-shrink: 0; }
+.slide-keypoint { background: var(--success-light); border: 1px solid var(--success-border); border-radius: var(--radius); padding: 18px 24px; font-size: 17px; color: var(--success-strong); margin-top: 24px; }
+
+/* 侧边栏 PPT 目录 */
+.sidebar { padding: 16px 0; }
+.nav-section-title { font-size: 11px; }
+.nav-item { font-size: 13px; padding: 8px 22px; }
+.nav-item .nav-page { font-size: 11px; color: var(--ink-faint); margin-left: auto; font-variant-numeric: tabular-nums; }
+
+@media (max-width: 768px) {
+  .slide { padding: 28px 20px; min-height: auto; }
+  .slide-cover h1 { font-size: 28px; }
+  .slide-title { font-size: 24px; }
+  .slide-formula { font-size: 16px; padding: 18px; }
+  .slide-compare { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== 顶部栏 ===== -->
+<div class="header">
+  <button class="menu-btn" onclick="toggleSidebar()" aria-label="打开导航菜单">☰</button>
+  <div class="header-title"><span class="school-brand">开封求实外国语学校</span> · <span>AI赋能教学实操培训</span></div>
+  <div class="header-right" style="margin-left:auto;">
+    <div class="mode-indicator mode-online"><span class="mode-dot"></span><span>讲师投屏</span></div>
+  </div>
+</div>
+
+<!-- ===== 侧边栏（PPT 目录） ===== -->
+<div class="sidebar" id="sidebar">
+  <div class="nav-section-title">开场</div>
+  <div class="nav-item" onclick="goSection('cover')"><div class="nav-check"></div><span>封面</span><span class="nav-page">01</span></div>
+  <div class="nav-item" onclick="goSection('overview')"><div class="nav-check"></div><span>培训目标与时间轴</span><span class="nav-page">02</span></div>
+
+  <div class="nav-section-title">认知关 建立概念</div>
+  <div class="nav-item" onclick="goSection('k1')"><div class="nav-check"></div><span>K1 什么是提示词</span><span class="nav-page">03</span></div>
+  <div class="nav-item" onclick="goSection('k2')"><div class="nav-check"></div><span>K2 什么是智能体</span><span class="nav-page">04</span></div>
+  <div class="nav-item" onclick="goSection('k3')"><div class="nav-check"></div><span>K3 什么是技能</span><span class="nav-page">05</span></div>
+  <div class="nav-item" onclick="goSection('k4')"><div class="nav-check"></div><span>K4 什么是知识库</span><span class="nav-page">06</span></div>
+  <div class="nav-item" onclick="goSection('k5')"><div class="nav-check"></div><span>K5 什么是龙虾助手</span><span class="nav-page">07</span></div>
+
+  <div class="nav-section-title">实操关 动手做</div>
+  <div class="nav-item" onclick="goSection('formula')"><div class="nav-check"></div><span>提示词八要素</span><span class="nav-page">08</span></div>
+  <div class="nav-item" onclick="goSection('compare')"><div class="nav-check"></div><span>正反例对比</span><span class="nav-page">09</span></div>
+  <div class="nav-item" onclick="goSection('abilities')"><div class="nav-check"></div><span>五种能力</span><span class="nav-page">10</span></div>
+  <div class="nav-item" onclick="goSection('skills')"><div class="nav-check"></div><span>技能速查表</span><span class="nav-page">11</span></div>
+  <div class="nav-item" onclick="goSection('demo')"><div class="nav-check"></div><span>闭环演示流程</span><span class="nav-page">12</span></div>
+  <div class="nav-item" onclick="goSection('tasks')"><div class="nav-check"></div><span>分学科任务选择</span><span class="nav-page">13</span></div>
+  <div class="nav-item" onclick="goSection('firstversion')"><div class="nav-check"></div><span>生成第一版</span><span class="nav-page">14</span></div>
+  <div class="nav-item" onclick="goSection('optimize')"><div class="nav-check"></div><span>优化迭代</span><span class="nav-page">15</span></div>
+  <div class="nav-item" onclick="goSection('customskill')"><div class="nav-check"></div><span>设计专属技能</span><span class="nav-page">16</span></div>
+  <div class="nav-item" onclick="goSection('agent')"><div class="nav-check"></div><span>教研智能体</span><span class="nav-page">17</span></div>
+  <div class="nav-item" onclick="goSection('output')"><div class="nav-check"></div><span>成品化指令</span><span class="nav-page">18</span></div>
+
+  <div class="nav-section-title">收束</div>
+  <div class="nav-item" onclick="goSection('ethics')"><div class="nav-check"></div><span>风险红线与公约</span><span class="nav-page">19</span></div>
+  <div class="nav-item" onclick="goSection('closing')"><div class="nav-check"></div><span>展示与收束</span><span class="nav-page">20</span></div>
+
+  <div class="nav-section-title">讲师控制台</div>
+  <div class="nav-item" onclick="goSection('dashboard')"><div class="nav-check"></div><span>📊 班级数据大屏</span></div>
+  <div class="nav-item" onclick="goSection('templates')"><div class="nav-check"></div><span>提示词模板库</span></div>
+</div>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar(false)"></div>
+
+<!-- ===== 主内容区 ===== -->
+<div class="main">
+
+<!-- 01 封面 -->
+<div class="slide slide-cover" id="cover" style="position:relative;">
+  <div class="school-name">开封求实外国语学校</div>
+  <h1>AI赋能教学实操培训</h1>
+  <div class="cover-sub">两小时，从写好一个提示词，到打造一个教研智能体</div>
+  <div class="cover-sub" style="margin-top:40px;">Powered by Purpose Plus Management Consulting Ltd</div>
+</div>
+
+<!-- 02 培训目标与时间轴 -->
+<div class="slide" id="overview" style="position:relative;">
+  <div class="slide-num">02</div>
+  <div class="slide-title">培训目标：三个跃迁</div>
+  <div class="slide-body">
+    <div class="step-list" style="font-size:19px;">
+      <li><strong>从"帮我写一段话"到"帮我出一套教学材料"</strong></li>
+      <li><strong>从"聊天输出"到"成品交付"</strong>——生成可下载的PPT/Excel/Word</li>
+      <li><strong>从"AI说什么我抄什么"到"打造教研智能体"</strong></li>
+    </div>
+  </div>
+  <h4 style="font-weight:700;margin:32px 0 12px;font-size:18px;">两小时时间轴</h4>
+  <div class="timeline" style="height:14px;border-radius:7px;">
+    <div class="timeline-seg bg-blue" style="flex:8" title="认知关 K1-K5"></div>
+    <div class="timeline-seg bg-purple" style="flex:10" title="提示词+上手"></div>
+    <div class="timeline-seg bg-teal" style="flex:12" title="能力+演示"></div>
+    <div class="timeline-seg bg-orange" style="flex:15" title="下半场实操"></div>
+    <div class="timeline-seg bg-pink" style="flex:10" title="专属技能+智能体"></div>
+    <div class="timeline-seg bg-green" style="flex:7" title="展示收束"></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--ink-faint);margin-top:6px;">
+    <span>0min</span><span>认知关</span><span>60min 上半场</span><span>实操关</span><span>120min</span>
+  </div>
+</div>
+
+<!-- 03 K1 什么是提示词 -->
+<div class="slide" id="k1" style="position:relative;">
+  <div class="slide-num">03 · K1</div>
+  <div class="slide-title">什么是提示词</div>
+  <div class="slide-subtitle">理解"下教学任务"和"聊天"的本质区别</div>
+  <div class="knowledge-slide-intro">提示词不是"和AI聊天"，而是<strong>给AI下一份清晰的教学任务书</strong>。就像你给实习生布置工作——说清"做什么、给谁用、要什么标准"，他才能交出你想要的东西。</div>
+  <div class="knowledge-slide-metaphor"><span class="mi">💡</span><div>AI 就像一个能力很强、但完全不了解你班级的"新来的实习生"。你对他说"写个教案"，他会按自己的理解随便写一份；但如果你交待清楚年级、课文、学情、重点、格式，他就能交出你真正能用的东西。<strong>提示词，就是这份"任务交待书"</strong>。</div></div>
+  <div class="slide-keypoint"><strong>一句话记住：</strong>提示词的本质 = 把你脑子里的教学经验，翻译成AI能精确执行的任务指令。</div>
+</div>
+
+<!-- 04 K2 什么是智能体 -->
+<div class="slide" id="k2" style="position:relative;">
+  <div class="slide-num">04 · K2</div>
+  <div class="slide-title">什么是智能体 Agent</div>
+  <div class="slide-subtitle">理解为什么WorkBuddy不只是聊天机器人</div>
+  <div class="knowledge-slide-intro">智能体比聊天机器人更进一步——它能<strong>记住上下文、串联多个步骤、主动调用工具</strong>。普通AI你问一句答一句；Agent你交一个目标，它自己拆解、执行、产出。</div>
+  <div class="knowledge-slide-metaphor"><span class="mi">💡</span><div>普通聊天 AI 像"咨询客服"——你问一句他答一句，但他不会替你把事办了。而 Agent 像<strong>"全能助理"</strong>——你说"帮我准备下周的公开课"，他会自己拆成几步：先写教案、再做分层任务、最后生成PPT，一步一步把成品交到你手上。</div></div>
+  <div class="slide-keypoint"><strong>一句话记住：</strong>大模型是"脑"（负责思考生成），智能体是"手"（调用脑和各种工具去办事），同一个智能体可以接不同的"脑"。</div>
+</div>
+
+<!-- 05 K3 什么是技能 -->
+<div class="slide" id="k3" style="position:relative;">
+  <div class="slide-num">05 · K3</div>
+  <div class="slide-title">什么是 Skills 技能</div>
+  <div class="slide-subtitle">理解AI如何一句话生成成品文件</div>
+  <div class="knowledge-slide-intro">Skills是AI的<strong>"专业能力包"</strong>——每个 Skill 把"指令 + 模板 + 工具"打包，AI 需要时<strong>自动调用</strong>。装了 PPT 技能就会做课件，装了表格技能就会出 Excel。</div>
+  <div class="knowledge-slide-metaphor"><span class="mi">💡</span><div>AI 本身像一个"什么都会一点、但样样不精通"的大学生。Skills 就是给他颁发的"教师资格证""PPT 工程师证""数据分析证"——<strong>每装一个 Skill，他就多一项拿得出手的专业本领</strong>，创建一次、永久复用。</div></div>
+  <div class="slide-keypoint"><strong>一句话记住：</strong>技能需要明确的触发词（如"做成PPT"）才会被调用。本次培训用的 PPT/Excel/Word/PDF 生成，就是内置的几个技能。</div>
+</div>
+
+<!-- 06 K4 什么是知识库 -->
+<div class="slide" id="k4" style="position:relative;">
+  <div class="slide-num">06 · K4</div>
+  <div class="slide-title">什么是知识库 RAG</div>
+  <div class="slide-subtitle">理解为什么上传教材后AI回答更准</div>
+  <div class="knowledge-slide-intro">知识库让AI<strong>基于你的教材、课标、校本题来回答，而不是凭空编造</strong>。就像让AI先"读完"你的资料，再基于资料回答——准确率大幅提升。</div>
+  <div class="knowledge-slide-metaphor"><span class="mi">💡</span><div>不建知识库直接问 AI，就像让学生"<strong>闭卷考试</strong>"——只能凭脑子里的记忆答，难免记错或编造（AI 的"幻觉"）。上传教材建好知识库后，相当于"<strong>开卷考试</strong>"——AI 可以翻着你给的书来回答，<strong>有据可查</strong>。</div></div>
+  <div class="slide-keypoint"><strong>一句话记住：</strong>RAG = 让AI"先读你的书，再回答你的问题"。上传教材后，AI的输出会贴合你的真实教学内容。</div>
+</div>
+
+<!-- 07 K5 什么是龙虾助手 -->
+<div class="slide" id="k5" style="position:relative;">
+  <div class="slide-num">07 · K5</div>
+  <div class="slide-title">什么是龙虾 OpenClaw 助手</div>
+  <div class="slide-subtitle">你的数字分身：有灵魂、有记忆、持续进化</div>
+  <div class="knowledge-slide-intro">龙虾助手是<strong>生活在本地或云端的智能助手</strong>——它有自己的灵魂和记忆，能持续学习你的习惯和偏好，像一个<strong>越用越懂你的数字分身</strong>。</div>
+  <div class="knowledge-slide-metaphor"><span class="mi">💡</span><div>普通 AI 工具像"每次都换人的代课老师"——每次来都不认识你。而龙虾助手像一位<strong>"长期和你搭档的助教"</strong>——他记得你的每个学生、熟悉你的教学风格、知道你上次备课改到哪了，<strong>越合作越默契</strong>。</div></div>
+  <div class="slide-keypoint"><strong>一句话记住：</strong>龙虾助手 = 有记忆、有灵魂、持续进化的数字分身。它是AI从"工具"走向"伙伴"的下一步。</div>
+</div>
+
+<!-- 08 提示词八要素 -->
+<div class="slide" id="formula" style="position:relative;">
+  <div class="slide-num">08</div>
+  <div class="slide-title">提示词八要素公式</div>
+  <div class="slide-subtitle">不是提问，是下任务</div>
+  <div class="slide-formula">角色 + 场景 + 目标 + 学情 + 材料 + 约束 + 输出格式 + 评价标准</div>
+  <div class="slide-body" style="text-align:center;font-size:18px;color:var(--ink-soft);">先说清<strong>给谁用</strong>（角色和对象）→ 再说清<strong>要解决什么教学问题</strong>（目标和学情）→ 最后说清<strong>输出成什么样</strong>（格式和评价标准）</div>
+</div>
+
+<!-- 09 正反例对比 -->
+<div class="slide" id="compare" style="position:relative;">
+  <div class="slide-num">09</div>
+  <div class="slide-title">看看区别：好提示词 vs 笼统提问</div>
+  <div class="slide-subtitle">同一件事，问法决定产出质量</div>
+  <div class="slide-body">
+    <p style="font-weight:700;font-size:18px;margin-bottom:12px;">📋 写教案</p>
+    <div class="slide-compare">
+      <div class="compare-card compare-bad"><div class="compare-label">✗ 太笼统</div><div class="compare-text">"帮我写一个教案"</div></div>
+      <div class="compare-card compare-good"><div class="compare-label">✓ 够具体</div><div class="compare-text">"你是一名小学语文教研员。请基于四年级上册《爬山虎的脚》一课，结合本班学生识字基础偏弱、课堂时间40分钟、要突出分层和课堂活动，输出学习目标、问题链、分层任务、板书设计和评价量规。"</div></div>
+    </div>
+    <p style="font-weight:700;font-size:18px;margin:20px 0 12px;">📊 分析错题</p>
+    <div class="slide-compare">
+      <div class="compare-card compare-bad"><div class="compare-label">✗ 太笼统</div><div class="compare-text">"帮我分析错题"</div></div>
+      <div class="compare-card compare-good"><div class="compare-label">✓ 够具体</div><div class="compare-text">"你是一名数学学情分析助手。以下是五年级10名学生'异分母分数加减法'的答题统计……请输出：共性错误排序、错因假设、3分钟讲解稿、2道例题、3道变式题、分层补救建议。"</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 10 五种能力 -->
+<div class="slide" id="abilities" style="position:relative;">
+  <div class="slide-num">10</div>
+  <div class="slide-title">WorkBuddy 的五种能力</div>
+  <div class="slide-subtitle">把WorkBuddy讲成"教学成品工厂"</div>
+  <div class="slide-body">
+    <div class="slide-ability"><h4>① 对话即任务</h4><p>你说什么，AI就做什么。不需要搭建，开口就说。</p></div>
+    <div class="slide-ability"><h4>② 文件即知识库</h4><p>上传教材PDF，AI就基于你的教材来回答，不凭空编造。</p></div>
+    <div class="slide-ability"><h4>③ 一段话串流程</h4><p>"先分析错题，再生成讲解，最后出练习"——一句话，AI自动分步完成。</p></div>
+    <div class="slide-ability"><h4>④ 成品直接出</h4><p>不只是聊天文字，AI能直接生成可下载的文件。</p></div>
+    <div class="slide-ability highlight"><h4>⑤ 技能即工具箱（重点！）</h4><p>内置PPT/Excel/Word/PDF/图片等技能，一句话就能生成可下载的文件成品。<strong>这是你下半场要用的核心能力。</strong></p></div>
+  </div>
+</div>
+
+<!-- 11 技能速查表 -->
+<div class="slide" id="skills" style="position:relative;">
+  <div class="slide-num">11</div>
+  <div class="slide-title">技能速查表</div>
+  <div class="slide-subtitle">一句话触发，生成可下载成品</div>
+  <div class="slide-body">
+    <div class="skill-grid">
+      <div class="skill-card"><div class="skill-icon">📊</div><div class="skill-name">PPT生成</div><div class="skill-format">.pptx 演示文稿</div><div class="skill-scenes">教学课件、公开课PPT、班会PPT</div><div class="skill-trigger">说 <strong>"做成PPT"</strong></div></div>
+      <div class="skill-card"><div class="skill-icon">📈</div><div class="skill-name">Excel生成</div><div class="skill-format">.xlsx 电子表格</div><div class="skill-scenes">错题分析表、成绩统计、练习清单</div><div class="skill-trigger">说 <strong>"做成Excel"</strong></div></div>
+      <div class="skill-card"><div class="skill-icon">📄</div><div class="skill-name">Word文档</div><div class="skill-format">.docx 文档</div><div class="skill-scenes">教案文档、家长信、教研报告</div><div class="skill-trigger">说 <strong>"做成Word"</strong></div></div>
+      <div class="skill-card"><div class="skill-icon">📑</div><div class="skill-name">PDF生成</div><div class="skill-format">.pdf 文档</div><div class="skill-scenes">学情报告、PBL方案、可打印资料</div><div class="skill-trigger">说 <strong>"做成PDF"</strong></div></div>
+      <div class="skill-card"><div class="skill-icon">🎨</div><div class="skill-name">图片生成</div><div class="skill-format">.png/.jpg 图片</div><div class="skill-scenes">课件配图、PBL情境图、对话场景图</div><div class="skill-trigger">说 <strong>"生成一张图片"</strong></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 12 闭环演示流程 -->
+<div class="slide" id="demo" style="position:relative;">
+  <div class="slide-num">12</div>
+  <div class="slide-title">闭环演示：一个单元 → 一套教学成品</div>
+  <div class="slide-subtitle">这不是"AI帮我写一段话"，而是"AI帮我把一个单元变成教学材料包"</div>
+  <div class="slide-body">
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th style="width:60px;">步骤</th><th>操作</th><th>产出</th></tr></thead>
+        <tbody>
+          <tr><td>①</td><td>输入单元信息和学情</td><td>—</td></tr>
+          <tr><td>②</td><td>用提示词模板生成完整教案</td><td>教案文本</td></tr>
+          <tr><td>③</td><td>"基于以上教案，设计分层任务单"</td><td>分层任务单</td></tr>
+          <tr><td>④</td><td>"生成5道课堂互动题，含答案和追问"</td><td>互动题集</td></tr>
+          <tr><td style="color:var(--accent);font-weight:700;">⑤</td><td><strong>"请把以上教案做成一份教学PPT"</strong></td><td><strong style="color:var(--success);">可下载PPT文件</strong></td></tr>
+          <tr><td style="color:var(--accent);font-weight:700;">⑥</td><td><strong>下载PPT并打开，展示给大家看</strong></td><td><strong style="color:var(--success);">真实文件</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- 13 分学科任务选择 -->
+<div class="slide" id="tasks" style="position:relative;">
+  <div class="slide-num">13</div>
+  <div class="slide-title">选择你的任务</div>
+  <div class="slide-subtitle">每组只做一个，选你最痛的那个场景</div>
+  <div class="slide-body">
+    <div class="task-grid" id="taskSelectGrid">
+      <div class="task-card" onclick="selectTask(this,'A')"><div class="task-card-header"><div class="task-badge bg-blue">A</div></div><div class="task-body"><div class="task-name">教案+分层任务单</div><div class="task-subjects">语文、英语、文综</div><div class="task-goal">教案文档 + 三层任务单</div></div></div>
+      <div class="task-card" onclick="selectTask(this,'B')"><div class="task-card-header"><div class="task-badge bg-green">B</div></div><div class="task-body"><div class="task-name">错题诊断+分层练习</div><div class="task-subjects">数学、理科</div><div class="task-goal">错题分析表 + 分层练习</div></div></div>
+      <div class="task-card" onclick="selectTask(this,'C')"><div class="task-card-header"><div class="task-badge bg-purple">C</div></div><div class="task-body"><div class="task-name">PBL项目设计</div><div class="task-subjects">全学科</div><div class="task-goal">PBL方案文档</div></div></div>
+      <div class="task-card" onclick="selectTask(this,'D')"><div class="task-card-header"><div class="task-badge bg-orange">D</div></div><div class="task-body"><div class="task-name">教学PPT生成</div><div class="task-subjects">全学科</div><div class="task-goal">可用PPT文件</div></div></div>
+      <div class="task-card" onclick="selectTask(this,'E')"><div class="task-card-header"><div class="task-badge bg-pink">E</div></div><div class="task-body"><div class="task-name">家校沟通+学情总结</div><div class="task-subjects">班主任、年级组长</div><div class="task-goal">家长信 + 学情报告</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- 14 生成第一版 -->
+<div class="slide" id="firstversion" style="position:relative;">
+  <div class="slide-num">14</div>
+  <div class="slide-title">生成你的第一版</div>
+  <div class="slide-subtitle">复制提示词 → 替换方括号 → 发送</div>
+  <div class="slide-body">
+    <div class="step-list" style="font-size:18px;">
+      <li><strong>找到你的任务提示词</strong></li>
+      <li><strong>复制提示词到WorkBuddy对话框</strong></li>
+      <li><strong>替换方括号里的内容</strong>——把[年级][课题][学情]换成你的真实信息</li>
+      <li><strong>发送，等AI生成结果</strong></li>
+    </div>
+    <div class="tip-box" style="font-size:16px;margin-top:24px;"><strong>关键：</strong>方括号里最影响结果的是<strong>[本班学情]</strong>——它决定AI生成的内容是否真的适合你的学生。</div>
+  </div>
+</div>
+
+<!-- 15 优化迭代 -->
+<div class="slide" id="optimize" style="position:relative;">
+  <div class="slide-num">15</div>
+  <div class="slide-title">优化你的第一版</div>
+  <div class="slide-subtitle">让AI根据你的真实素材和反馈来改进</div>
+  <div class="slide-body">
+    <div class="step-list" style="font-size:18px;">
+      <li><strong>上传教材让AI改进</strong><div class="prompt-block" style="margin-top:12px;"><div class="prompt-header"><span class="prompt-label">优化指令 · 点击复制</span><button class="copy-btn" onclick="copyPrompt(this)">复制</button></div><div class="prompt-code">请基于我上传的教材内容，改进上面的教案，确保贴合教材的重难点和知识点</div></div></li>
+      <li><strong>直接说不满意的地方</strong><div class="prompt-block" style="margin-top:12px;"><div class="prompt-header"><span class="prompt-label">修改指令 · 点击复制</span><button class="copy-btn" onclick="copyPrompt(this)">复制</button></div><div class="prompt-code">以下地方需要修改：
+1. [比如"导入部分太长了，请缩短到2分钟内"]
+2. [比如"分层任务的基础层太简单了，请适当提高难度"]
+请修改后重新输出。</div></div></li>
+    </div>
+    <div class="tip-box" style="font-size:16px;margin-top:20px;"><strong>记住：</strong>先求"能用"，不要卡在"完美"。不满意就跟AI说，这就是迭代。</div>
+  </div>
+</div>
+
+<!-- 16 设计专属技能 -->
+<div class="slide" id="customskill" style="position:relative;">
+  <div class="slide-num">16 · P7</div>
+  <div class="slide-title">设计你的专属技能</div>
+  <div class="slide-subtitle">把你的专业经验，变成可复用、可分享的AI技能</div>
+  <div class="slide-body">
+    <div class="knowledge-slide-intro"><strong>这是整场培训最让你惊喜的一步。</strong>把你反复在用的教学经验（教案审核标准、分层出题套路、家长信风格），写成一套指令模板——以后一句话触发，AI自动按你的标准做事。</div>
+    <h4 style="font-weight:700;margin:20px 0 12px;font-size:18px;">三步法</h4>
+    <div class="step-list" style="font-size:17px;">
+      <li><strong>找到你反复在做的事</strong>——比如分层出题总强调"基础5题+发展4题+挑战3题"</li>
+      <li><strong>写成清晰的指令模板</strong>——把标准、流程、输出格式写成"技能说明书"</li>
+      <li><strong>起名触发</strong>——命名为"我的分层出题"，以后一句话调用</li>
+    </div>
+    <div class="prompt-block" style="margin-top:20px;"><div class="prompt-header"><span class="prompt-label">技能模板：我的分层出题 · 点击复制</span><button class="copy-btn" onclick="copyPrompt(this)">复制</button></div><div class="prompt-code">请帮我创建一个名为"我的分层出题"的专属技能。
+我说一个知识点，你就按我固定的套路出题：
+- 基础层：5道基础题，覆盖核心知识点
+- 发展层：4道应用题，需要迁移理解
+- 挑战层：3道综合题，需要多步推理
+- 每道题附答案和解析
+请把这套标准整理成技能说明书，以后我说"分层出题"你就按这个执行。</div></div>
+    <div class="slide-keypoint"><strong>额外价值：</strong>设计好后可分享给同组、同校老师，把个人经验变成团队教研资产。</div>
+  </div>
+</div>
+
+<!-- 17 教研智能体 -->
+<div class="slide" id="agent" style="position:relative;">
+  <div class="slide-num">17 · P8</div>
+  <div class="slide-title">打造教研智能体：用 vibe coding</div>
+  <div class="slide-subtitle">培训最高潮——从一份成品，到一个持续进化的教研体系</div>
+  <div class="slide-body">
+    <div class="knowledge-slide-intro"><strong>vibe coding</strong> = 用说话的方式指挥AI写代码、搭工具，不用懂编程语法。<br><strong>教研智能体</strong> = 校本知识库 + 教研组技能 + 持续记忆。让组里任何人问一句，都能得到团队经验的积累。</div>
+    <div class="prompt-block" style="margin-top:20px;"><div class="prompt-header"><span class="prompt-label">vibe coding指令：搭建教研智能体 · 点击复制</span><button class="copy-btn" onclick="copyPrompt(this)">复制</button></div><div class="prompt-code">请帮我打造一个"教研智能体"，具备以下能力：
+1.【校本知识库】我会陆续上传教研组的优质教案、易错题、评价量规，请基于这些资料回答，并注明依据来源，没有就说"资料库暂无"，不要编造。
+2.【教研组技能】请接入我的"分层出题""教案审核"等专属技能。
+3.【持续记忆】请记住我们组的学科年级、学生薄弱点、偏好风格。
+4.【工作流程】当我说"备这节课"时，自动：找参考→生成教案→审核→给可下载成品。
+请先确认理解，然后告诉我该怎么把资料喂给你。</div></div>
+    <div class="slide-keypoint"><strong>关键认知：</strong>智能体的水平取决于你喂的内容质量。持续沉淀好课、好题、好量规，它才会越来越聪明——这就是校本知识库的价值。</div>
+  </div>
+</div>
+
+<!-- 18 成品化指令 -->
+<div class="slide" id="output" style="position:relative;">
+  <div class="slide-num">18</div>
+  <div class="slide-title">成品化指令速查</div>
+  <div class="slide-subtitle">先用对话把内容做对，再用技能把成品做出来</div>
+  <div class="slide-body">
+    <div class="prompt-block"><div class="prompt-header"><span class="prompt-label">教案 → Word</span><button class="copy-btn" onclick="copyPrompt(this)">复制</button></div><div class="prompt-code">请把以上教案整理成一份格式规范的Word文档，含标题、学习目标、教学流程、分层任务、评价量规</div></div>
+    <div class="prompt-block"><div class="prompt-header"><span class="prompt-label">错题分析 → Excel</span><button class="copy-btn" onclick="copyPrompt(this)">复制</button></div><div class="prompt-code">请把错题分析结果做成一份Excel表格，包含题号、知识点、错误率、错因、补救建议、变式题</div></div>
+    <div class="prompt-block"><div class="prompt-header"><span class="prompt-label">教案 → 教学PPT</span><button class="copy-btn" onclick="copyPrompt(this)">复制</button></div><div class="prompt-code">请基于以上教案内容，做成一份15页的教学PPT，要有标题页、目标页、每个环节一页、总结页</div></div>
+    <div class="prompt-block"><div class="prompt-header"><span class="prompt-label">学情报告 → PDF</span><button class="copy-btn" onclick="copyPrompt(this)">复制</button></div><div class="prompt-code">请把学情分析整理成一份PDF报告，含班级整体情况、薄弱点排名、分层建议</div></div>
+  </div>
+</div>
+
+<!-- 19 风险红线与公约 -->
+<div class="slide" id="ethics" style="position:relative;">
+  <div class="slide-num">19</div>
+  <div class="slide-title">六条红线 + 学生AI公约</div>
+  <div class="slide-subtitle">AI在旁边，教师在中间，学生在活动中</div>
+  <div class="slide-body">
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>风险</th><th>怎么做</th></tr></thead>
+        <tbody>
+          <tr><td><strong>学生隐私</strong></td><td>上传文件前先脱敏——去掉学生姓名、身份证号</td></tr>
+          <tr><td><strong>AI会出错</strong></td><td>AI生成的知识、解析、答案必须审核，不能直接用</td></tr>
+          <tr><td><strong>评价公平</strong></td><td>AI的评分只能做参考，正式评分权在教师手中</td></tr>
+          <tr><td><strong>学生依赖</strong></td><td>学生端AI要给提示不给答案，教学生先想再问</td></tr>
+          <tr><td><strong>版权合规</strong></td><td>只上传授权资料，生成内容注明AI辅助</td></tr>
+          <tr><td><strong>课堂关系</strong></td><td>AI在旁边，教师在中间，学生在活动中</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- 20 展示与收束 -->
+<div class="slide" id="closing" style="position:relative;">
+  <div class="slide-num">20</div>
+  <div class="slide-title">展示与收束</div>
+  <div class="slide-subtitle">每组1分钟，展示三个问题</div>
+  <div class="slide-body">
+    <div class="step-list" style="font-size:19px;">
+      <li>我们做了什么</li>
+      <li><strong>展示生成的成品文件</strong>（打开PPT/Excel/Word/PDF给大家看）</li>
+      <li>下周准备用在哪一节课</li>
+    </div>
+    <div class="quote" style="font-size:19px;margin-top:32px;text-align:left;">"AI时代，老师最重要的能力不是让AI说得快，而是让AI服务于教学设计、学习过程和真实课堂。<strong>先用对话把内容做对，再用技能把成品做出来，最后把经验沉淀成教研智能体。</strong>"</div>
+    <div style="margin-top:32px;padding:24px;background:var(--gradient-celebrate);border-radius:var(--radius);text-align:center;">
+      <p style="font-size:20px;font-weight:700;color:var(--ink);">你今天带走了什么？</p>
+      <p style="font-size:16px;color:var(--ink-soft);margin-top:10px;">✓ 一个提示词模板 &nbsp; ✓ 一个专属技能 &nbsp; ✓ 一个教研智能体的雏形</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 提示词模板库（附录） ===== -->
+<div class="slide" id="templates" style="position:relative;">
+  <div class="slide-num">附录</div>
+  <div class="slide-title">提示词模板库</div>
+  <div class="slide-subtitle">7个模板，随时复制使用</div>
+  <div class="slide-body">
+    <div id="templatesContainer"></div>
+  </div>
+</div>
+
+<!-- ===== 班级数据大屏（讲师控制台） ===== -->
+<div class="section" id="dashboard" style="scroll-margin-top:74px;">
+  <div class="section-header" style="margin-top:32px;">
+    <div class="section-badge badge-green">讲师控制台</div>
+    <h2 class="section-title">📊 班级数据大屏</h2>
+    <button class="complete-btn" style="margin-left:auto;" id="refreshBtn" onclick="refreshDashboard(true)">手动刷新</button>
+  </div>
+  <p class="section-subtitle">实时查看全班学员的学习进度 · 每 10 秒自动刷新</p>
+  <div id="dashStats" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;margin-bottom:24px;"></div>
+  <div class="card">
+    <h4 style="font-weight:700;margin-bottom:16px;">各关卡完成率</h4>
+    <div id="dashStepHeatmap"></div>
+  </div>
+  <div class="card" style="margin-top:16px;">
+    <h4 style="font-weight:700;margin-bottom:16px;">学员进度明细 <span id="dashLearnerCount" style="font-size:13px;color:var(--ink-faint);font-weight:400;"></span></h4>
+    <div class="table-wrap">
+      <table><thead><tr><th>姓名</th><th>进度</th><th>已完成关卡</th><th>积分</th><th>任务</th><th>最后活跃</th></tr></thead>
+      <tbody id="dashLearnerBody"><tr><td colspan="6" style="text-align:center;color:var(--ink-faint);padding:24px;">加载中...</td></tr></tbody></table>
+    </div>
+  </div>
+  <p id="dashUpdated" style="font-size:12px;color:var(--ink-faint);margin-top:12px;text-align:right;"></p>
+</div>
+
+</div><!-- /main -->
+
+<!-- 底部版权 -->
+<footer class="site-footer">
+  <div class="footer-content">
+    <span class="footer-brand">开封求实外国语学校</span>
+    <span class="footer-sep">·</span>
+    <span>AI赋能教学实操培训平台</span>
+    <span class="footer-sep">·</span>
+    <span class="footer-powered">Powered by Purpose Plus Management Consulting Ltd</span>
+  </div>
+</footer>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== 提示词模板数据 =====
+const templates = [
+  { id: 1, name: "新课标教案生成", icon: "📝", scene: "备课", code: `你是一名有经验的中小学教师和教研员。请基于以下信息设计一课时教案：\n\n- 年级与学科：[填写]\n- 教材版本与课题：[填写]\n- 课标目标/核心素养：[填写]\n- 本班学情：[填写]\n- 课时长度：[填写]\n\n请输出：学习目标、重点难点、导入、问题串、学生活动、分层任务（基础/发展/挑战）、板书设计、随堂评价、课后作业。\n要求：贴合学生年龄，每个环节写明教师做什么、学生做什么、如何评价。` },
+  { id: 2, name: "分层任务单生成", icon: "📚", scene: "分层教学", code: `请围绕"[知识点/课文/单元主题]"设计三层学习任务：\n\n基础层：帮助学困生掌握必要知识\n发展层：帮助大多数学生完成迁移应用\n挑战层：帮助学有余力学生进行综合表达或探究\n\n每层包含：目标、材料、任务、提示、评价标准和预计用时。\n要求：不要降低基础层的尊严感，语言要鼓励。` },
+  { id: 3, name: "错因诊断与补救", icon: "🔍", scene: "错题分析", code: `以下是学生在一次练习中的错误统计和典型答案：\n\n[粘贴错题统计和典型答案]\n\n请帮我判断可能的知识漏洞和思维误区，并输出：\n1. 班级共性薄弱点排序\n2. 每个薄弱点的错因假设\n3. 3分钟讲解稿\n4. 2道例题和3道变式题\n5. 学困/中等/优生的不同补救建议\n\n注意：如果数据不足，请标出"不确定"，不要臆断。` },
+  { id: 4, name: "PBL项目设计", icon: "🎯", scene: "项目式学习", code: `你是一名项目式学习设计专家。请基于以下主题，为[年级]课堂设计一套PBL方案：\n\n- 主题：[填写]\n- 学科：[填写]\n- 课时：[填写，如4-6课时]\n\n请输出：驱动问题、项目目标、任务链（分课时）、学生分工、资料支持、分层支架、成果物、评价量规。\n要求：任务要真实，过程要可操作，适合在一线课堂落地。` },
+  { id: 5, name: "家校沟通文案", icon: "💬", scene: "家校沟通", code: `你是一名有温度的班主任。请根据以下信息写一段家长信：\n\n- 事件/背景：[填写]\n- 学生表现：[填写]\n- 教师观察：[填写]\n\n要求：事实型、鼓励型、有下一步行动建议。家长信不超过300字，微群消息不超过100字，不给学生贴负面标签。` },
+  { id: 6, name: "技能成品化指令库", icon: "⚡", scene: "技能使用", isSkill: true },
+  { id: 7, name: "学生AI使用公约", icon: "🤝", scene: "学生AI素养", code: `请帮我生成一份适合[年级]学生的AI使用公约，要求：\n1. 向AI提问前，先写出自己的想法\n2. 让AI给提示，不让AI直接给最终答案\n3. 让AI解释为什么，而不是只要结果\n4. 把AI回答和课本、老师讲解、同伴讨论进行对照\n5. 提交作业时标明哪些地方使用过AI帮助\n\n请用学生能理解的语言，设计成一页可打印的公约卡片。` },
+];
+
+// ===== 渲染模板库 =====
+function renderTemplates() {
+  const container = document.getElementById('templatesContainer');
+  if (!container) return;
+  container.innerHTML = templates.map(t => {
+    if (t.isSkill) return `<div class="card card-accent"><div class="card-header"><div class="card-title"><span style="font-size:24px;">${t.icon}</span> 模板${t.id}：${t.name}</div></div><p style="font-size:14px;color:var(--primary-dark);font-weight:600;">请查看「技能速查表」获取5种技能的详细触发方式。</p></div>`;
+    return `<div class="card"><div class="card-header"><div class="card-title"><span style="font-size:24px;">${t.icon}</span> 模板${t.id}：${t.name}</div><span class="section-badge badge-blue">${t.scene}</span></div><div class="prompt-block"><div class="prompt-header"><span class="prompt-label">提示词 · 点击复制</span><button class="copy-btn" onclick="copyPrompt(this)">复制</button></div><div class="prompt-code">${escapeHtml(t.code)}</div></div></div>`;
+  }).join('');
+}
+
+// ===== 工具函数 =====
+function escapeHtml(text) { const d = document.createElement('div'); d.textContent = text; return d.innerHTML; }
+
+window.goSection = function(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const navItem = document.querySelector(`.nav-item[onclick="goSection('${id}')"]`);
+  if (navItem) navItem.classList.add('active');
+  if (window.innerWidth <= 768) toggleSidebar(false);
+};
+
+function copyPrompt(btn) {
+  const codeEl = btn.closest('.prompt-block').querySelector('.prompt-code');
+  const text = codeEl.textContent;
+  if (navigator.clipboard) { navigator.clipboard.writeText(text).then(() => showCopySuccess(btn)).catch(() => fallbackCopy(text, btn)); }
+  else { fallbackCopy(text, btn); }
+}
+function fallbackCopy(text, btn) {
+  const ta = document.createElement('textarea'); ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); showCopySuccess(btn); } catch(e) { showToast('复制失败，请手动选择', false); }
+  document.body.removeChild(ta);
+}
+function showCopySuccess(btn) {
+  const orig = btn.textContent; btn.textContent = '✓ 已复制'; btn.classList.add('copied');
+  showToast('已复制到剪贴板，粘贴到WorkBuddy对话框即可使用', true);
+  setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+}
+function showToast(msg, success) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg; toast.className = 'toast show' + (success ? ' success' : '');
+  setTimeout(() => { toast.className = 'toast' + (success ? ' success' : ''); }, 2500);
+}
+
+// ===== 任务选择 =====
+function selectTask(card, taskType) {
+  document.querySelectorAll('#taskSelectGrid .task-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  showToast(`已选择任务${taskType}，下半场开始时复制对应模板即可`, true);
+}
+
+// ===== 移动端导航抽屉 =====
+function toggleSidebar(force) {
+  const s = document.getElementById('sidebar');
+  const o = document.getElementById('sidebarOverlay');
+  if (!s) return;
+  const willOpen = (typeof force === 'boolean') ? force : !s.classList.contains('open');
+  s.classList.toggle('open', willOpen);
+  if (o) o.classList.toggle('show', willOpen);
+}
+
+// ===== 实时数据大屏 =====
+let dashInterval = null;
+const dashApiBase = window.location.origin;
+
+async function refreshDashboard(manual) {
+  const statsEl = document.getElementById('dashStats');
+  if (!statsEl) return;
+  try {
+    const resp = await fetch(dashApiBase + '/api/instructor/dashboard');
+    if (!resp.ok) throw new Error('数据获取失败');
+    const data = await resp.json();
+    renderDashStats(data);
+    renderDashHeatmap(data);
+    renderDashLearners(data);
+    const upd = document.getElementById('dashUpdated');
+    if (upd) upd.textContent = '数据更新于 ' + data.generatedAt + (manual ? '（手动）' : '（自动）');
+    if (manual) showToast('数据已刷新', true);
+  } catch(e) {
+    statsEl.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--ink-faint);padding:24px;">无法连接服务器，将在下次自动刷新时重试</div>';
+  }
+}
+function renderDashStats(data) {
+  const el = document.getElementById('dashStats');
+  const cards = [
+    { num: data.totalUsers, label: '参与学员', icon: '👥', color: 'var(--blue)' },
+    { num: data.avgProgress + '%', label: '平均完成进度', icon: '📈', color: 'var(--primary)' },
+    { num: data.totalStepsCompleted, label: '累计完成关卡', icon: '✓', color: 'var(--success)' },
+    { num: Object.keys(data.taskDistribution).length, label: '已选任务数', icon: '🎯', color: 'var(--accent)' },
+  ];
+  el.innerHTML = cards.map(c => `<div style="background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;border-left:4px solid ${c.color};"><div style="font-size:22px;">${c.icon}</div><div style="font-size:28px;font-weight:700;color:${c.color};margin:4px 0;">${c.num}</div><div style="font-size:13px;color:var(--ink-soft);">${c.label}</div></div>`).join('');
+}
+function renderDashHeatmap(data) {
+  const el = document.getElementById('dashStepHeatmap');
+  if (!el) return;
+  const rates = data.stepCompletionRate || [];
+  const counts = data.stepCompletion || [];
+  const labels = ['K1提示词','K2智能体','K3技能','K4知识库','K5龙虾','P1提示词入门','P2首次上手','P3认识能力','P4观看演示','P5生成第一版','P6优化迭代','P7专属技能','P8教研智能体'];
+  el.innerHTML = '<div style="display:flex;flex-direction:column;gap:8px;">' + rates.map((rate, i) => {
+    const intensity = rate / 100;
+    const bg = rate === 0 ? 'var(--surface-2)' : `rgba(224,122,95,${0.15 + intensity * 0.75})`;
+    const fg = rate >= 50 ? 'var(--surface)' : 'var(--ink)';
+    return `<div style="display:flex;align-items:center;gap:12px;"><div style="width:130px;font-size:13px;color:var(--ink-soft);">${labels[i] || ('关卡'+(i+1))}</div><div style="flex:1;background:var(--surface-2);border-radius:6px;height:24px;overflow:hidden;"><div style="width:${rate}%;height:100%;background:${bg};display:flex;align-items:center;padding-left:10px;font-size:11px;font-weight:600;color:${fg};">${rate}%</div></div><div style="width:50px;font-size:11px;color:var(--ink-faint);text-align:right;">${counts[i]}人</div></div>`;
+  }).join('') + '</div>';
+}
+function renderDashLearners(data) {
+  const body = document.getElementById('dashLearnerBody');
+  const cnt = document.getElementById('dashLearnerCount');
+  if (!body) return;
+  const learners = data.learners || [];
+  if (cnt) cnt.textContent = `（共 ${learners.length} 人）`;
+  if (learners.length === 0) { body.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--ink-faint);padding:24px;">暂无学员数据</td></tr>'; return; }
+  body.innerHTML = learners.map(l => {
+    const prog = l.progress;
+    const progColor = prog === 100 ? 'var(--success)' : (prog >= 50 ? 'var(--primary)' : 'var(--accent)');
+    return `<tr><td style="font-weight:600;">${l.name}</td><td><div style="display:flex;align-items:center;gap:8px;"><div style="width:80px;height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden;"><div style="width:${prog}%;height:100%;background:${progColor};"></div></div><span style="font-size:12px;">${prog}%</span></div></td><td style="font-size:12px;">${(l.steps||[]).length}/13</td><td style="color:var(--primary);font-weight:600;">${l.points}</td><td>${l.task ? '任务'+l.task : '<span style="color:var(--ink-faint);">未选</span>'}</td><td style="font-size:12px;color:var(--ink-faint);">${l.lastActive || '-'}</td></tr>`;
+  }).join('');
+}
+function startDashboardAutoRefresh() {
+  refreshDashboard(false);
+  if (dashInterval) clearInterval(dashInterval);
+  dashInterval = setInterval(() => refreshDashboard(false), 10000);
+}
+
+// ===== 滚动监听 =====
+let scrollTimeout;
+window.addEventListener('scroll', () => {
+  clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(() => {
+    const sections = document.querySelectorAll('.slide, .section');
+    let current = '';
+    sections.forEach(s => { const r = s.getBoundingClientRect(); if (r.top < 120 && r.bottom > 120 && s.id) current = s.id; });
+    if (current) {
+      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+      const navItem = document.querySelector(`.nav-item[onclick="goSection('${current}')"]`);
+      if (navItem) navItem.classList.add('active');
+    }
+  }, 100);
+});
+
+// ===== 初始化 =====
+renderTemplates();
+startDashboardAutoRefresh();
+</script>
+
+</body>
+</html>

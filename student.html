@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI赋能教学实操培训 · 学员微学习平台</title>
+<link rel="stylesheet" href="./assets/style.css">
+</head>
+<body>
+
+<!-- ===== 顶部栏 ===== -->
+<div class="header">
+  <button class="menu-btn" id="menuBtn" onclick="APP.toggleSidebar()" aria-label="打开导航菜单">☰</button>
+  <div class="header-title"><span class="school-brand" id="schoolBrand">开封求实外国语学校</span> · <span>AI赋能教学实操培训</span></div>
+  <div class="header-progress">
+    <div class="progress-text" id="mapCounter">已掌握 0/13</div>
+  </div>
+  <div class="header-right">
+    <div class="mode-indicator mode-offline" id="modeIndicator">
+      <span class="mode-dot"></span><span>检测中...</span>
+    </div>
+    <div class="header-badge" id="taskBadge">未选择任务</div>
+    <div class="user-chip" id="userChip"></div>
+  </div>
+</div>
+
+<!-- ===== 侧边栏 ===== -->
+<div class="sidebar">
+  <div class="nav-section-title">培训总览</div>
+  <div class="nav-item" data-target="welcome" onclick="goSection('welcome')">
+    <div class="nav-check"></div><span>欢迎与指引</span>
+  </div>
+  <div class="nav-item" data-target="demandatlas" onclick="goSection('demandatlas')">
+    <div class="nav-check"></div><span>🗺️ 教师需求图谱</span>
+  </div>
+
+  <div class="nav-section-title">认知关 建立概念</div>
+  <div class="nav-item" data-level="K1" onclick="APP.goToLevel('K1')">
+    <div class="nav-check"></div><span>K1 什么是提示词</span>
+  </div>
+  <div class="nav-item" data-level="K2" onclick="APP.goToLevel('K2')">
+    <div class="nav-check"></div><span>K2 什么是智能体</span>
+  </div>
+  <div class="nav-item" data-level="K3" onclick="APP.goToLevel('K3')">
+    <div class="nav-check"></div><span>K3 什么是Skills技能</span>
+  </div>
+  <div class="nav-item" data-level="K4" onclick="APP.goToLevel('K4')">
+    <div class="nav-check"></div><span>K4 什么是知识库RAG</span>
+  </div>
+  <div class="nav-item" data-level="K5" onclick="APP.goToLevel('K5')">
+    <div class="nav-check"></div><span>K5 什么是龙虾助手</span>
+  </div>
+
+  <div class="nav-section-title">实操关 动手做</div>
+  <div class="nav-item" data-step="1" data-level="P1" onclick="APP.goToLevel('P1')">
+    <div class="nav-check"></div><span>P1 提示词入门</span><span class="nav-time">8-18</span>
+  </div>
+  <div class="nav-item" data-step="2" data-level="P2" onclick="APP.goToLevel('P2')">
+    <div class="nav-check"></div><span>P2 首次上手</span><span class="nav-time">18-28</span>
+  </div>
+  <div class="nav-item" data-step="3" data-level="P3" onclick="APP.goToLevel('P3')">
+    <div class="nav-check"></div><span>P3 认识能力</span><span class="nav-time">28-40</span>
+  </div>
+  <div class="nav-item" data-step="4" data-level="P4" onclick="APP.goToLevel('P4')">
+    <div class="nav-check"></div><span>P4 观看演示</span><span class="nav-time">40-52</span>
+  </div>
+  <div class="nav-item" data-target="choose" onclick="goSection('choose')">
+    <div class="nav-check"></div><span>选择你的任务</span><span class="nav-time">52-60</span>
+  </div>
+  <div class="nav-item" data-step="5" data-level="P5" onclick="APP.goToLevel('P5')">
+    <div class="nav-check"></div><span>P5 生成第一版</span><span class="nav-time">0-10</span>
+  </div>
+  <div class="nav-item" data-step="6" data-level="P6" onclick="APP.goToLevel('P6')">
+    <div class="nav-check"></div><span>P6 优化迭代</span><span class="nav-time">10-25</span>
+  </div>
+  <div class="nav-item" data-step="7" data-level="P7" onclick="APP.goToLevel('P7')">
+    <div class="nav-check"></div><span>P7 设计专属技能</span><span class="nav-time">25-40</span>
+  </div>
+  <div class="nav-item" data-step="8" data-level="P8" onclick="APP.goToLevel('P8')">
+    <div class="nav-check"></div><span>P8 打造教研智能体</span><span class="nav-time">40-53</span>
+  </div>
+  <div class="nav-item" data-target="showcase" onclick="goSection('showcase')">
+    <div class="nav-check"></div><span>展示与收获</span><span class="nav-time">53-60</span>
+  </div>
+
+  <div class="nav-section-title">我的成长</div>
+  <div class="nav-item" data-target="achievements" onclick="goSection('achievements')">
+    <div class="nav-check"></div><span>🏆 我的成就</span>
+  </div>
+  <div class="nav-item" data-target="leaderboard" onclick="goSection('leaderboard')">
+    <div class="nav-check"></div><span>📊 排行榜</span>
+  </div>
+
+  <div class="nav-section-title">资源库</div>
+  <div class="nav-item" data-target="mytask" onclick="goSection('mytask')">
+    <div class="nav-check"></div><span>我的任务提示词</span>
+  </div>
+  <div class="nav-item" data-target="alltemplates" onclick="goSection('alltemplates')">
+    <div class="nav-check"></div><span>全部提示词模板</span>
+  </div>
+  <div class="nav-item" data-target="skillguide" onclick="goSection('skillguide')">
+    <div class="nav-check"></div><span>技能使用指南</span>
+  </div>
+  <div class="nav-item" data-target="safety" onclick="goSection('safety')">
+    <div class="nav-check"></div><span>安全使用须知</span>
+  </div>
+  <div class="nav-item" data-target="learnhub" onclick="goSection('learnhub')">
+    <div class="nav-check"></div><span>🌱 拓展学习</span>
+  </div>
+  <div class="nav-item" data-target="toolhub" onclick="goSection('toolhub')">
+    <div class="nav-check"></div><span>🔧 工具资源库</span>
+  </div>
+</div>
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="APP.closeSidebar()"></div>
+
+<!-- ===== 主内容区 ===== -->
+<div class="main">
+
+<!-- 欢迎 -->
+<div class="section" id="welcome">
+  <div class="welcome-intro" id="welcomeIntro">
+    <h1 class="section-title">欢迎来到AI赋能教学实操培训</h1>
+    <p class="section-subtitle">两小时，你将亲手用AI做出一份能下周就能用的教学成品</p>
+
+    <div class="card card-highlight">
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:16px;">今天你会完成什么</h3>
+      <div class="step-list">
+        <li><strong>学会写提示词</strong>——不是和AI聊天，而是给AI下教学任务</li>
+        <li><strong>亲手操作WorkBuddy</strong>——上传教材、生成教案、做出分层任务单</li>
+        <li><strong>打造教研智能体</strong>——用vibe coding串联知识库和技能，建一个持续进化的校本教研助手</li>
+        <li><strong>带走一份教学成品</strong>——下周课堂就能用</li>
+      </div>
+    </div>
+
+    <div class="card card-success">
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:12px;">游戏化学习激励</h3>
+      <p style="font-size:14px;color:var(--gray-600);margin-bottom:12px;">完成每个步骤获得积分，升级头衔，解锁徽章，参与排行榜！</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <span class="section-badge badge-orange">🎯 完成步骤 +10分</span>
+        <span class="section-badge badge-purple">⚡ 上半场完成 +30分</span>
+        <span class="section-badge badge-green">🏁 下半场完成 +50分</span>
+        <span class="section-badge badge-pink">🏆 全部完成 +100分</span>
+      </div>
+    </div>
+
+    <div class="card card-accent">
+      <h3 style="font-size:18px;font-weight:700;margin-bottom:12px;">培训开始前请准备好</h3>
+      <div class="bullet-list">
+        <li>登录WorkBuddy平台（如果还没登录，请举手找讲师帮忙）</li>
+        <li>准备一个你本周或下周要上的真实课题</li>
+        <li>如果方便的话，用手机拍一页你要用的教材</li>
+        <li>准备好和同组老师交流的心态</li>
+      </div>
+    </div>
+  </div>
+
+  <div class="my-task-banner" id="myTaskBanner">
+    <h3 id="bannerTitle">我的任务</h3>
+    <p id="bannerDesc"></p>
+    <a href="javascript:goSection('mytask')" class="task-link">查看我的任务提示词 →</a>
+  </div>
+
+  <div class="card card-highlight">
+    <h3 style="font-size:18px;font-weight:700;margin-bottom:16px;">今天你会完成什么</h3>
+    <div class="step-list">
+      <li><strong>学会写提示词</strong>——不是和AI聊天，而是给AI下教学任务</li>
+      <li><strong>亲手操作WorkBuddy</strong>——上传教材、生成教案、做出分层任务单</li>
+      <li><strong>打造教研智能体</strong>——用vibe coding串联知识库和技能，建一个持续进化的校本教研助手</li>
+      <li><strong>带走一套AI教学能力</strong>——从一个提示词到一个教研智能体，下周就能用</li>
+    </div>
+  </div>
+
+  <div class="card card-success">
+    <h3 style="font-size:18px;font-weight:700;margin-bottom:12px;">游戏化学习激励</h3>
+    <p style="font-size:14px;color:var(--gray-600);margin-bottom:12px;">完成每个步骤获得积分，升级头衔，解锁徽章，参与排行榜！</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;">
+      <span class="section-badge badge-orange">🎯 完成步骤 +10分</span>
+      <span class="section-badge badge-purple">⚡ 上半场完成 +30分</span>
+      <span class="section-badge badge-green">🏁 下半场完成 +50分</span>
+      <span class="section-badge badge-pink">🏆 全部完成 +100分</span>
+    </div>
+  </div>
+
+  <div class="card card-accent">
+    <h3 style="font-size:18px;font-weight:700;margin-bottom:12px;">培训开始前请准备好</h3>
+    <div class="bullet-list">
+      <li>登录WorkBuddy平台（如果还没登录，请举手找讲师帮忙）</li>
+      <li>准备一个你本周或下周要上的真实课题</li>
+      <li>如果方便的话，用手机拍一页你要用的教材</li>
+      <li>准备好和同组老师交流的心态</li>
+    </div>
+  </div>
+
+  <!-- 任务选择 -->
+  <div class="card card-purple" id="choose">
+    <div class="card-header"><div class="card-title"><span class="section-badge badge-purple">选择任务</span> 选择你要完成的任务</div></div>
+    <p style="font-size:15px;color:var(--gray-600);margin-bottom:16px;">下面是5个任务，每个任务对应一个真实教学场景。<strong>选择一个最适合你的任务</strong>，下半场你就围绕它来做出成品。</p>
+    <div class="info-box"><strong>怎么选？</strong>选你本周或下周真的要上的那节课对应的任务。不用纠结——选你最痛的那个场景就好。</div>
+    <div class="task-select-grid">
+      <div class="task-select-card" onclick="APP.selectTask('A', this)">
+        <div class="task-card-top"><div class="task-badge bg-blue">A</div><div class="task-card-name">教案+分层任务单</div><div class="task-card-subjects">语文、英语、文综</div><div class="task-card-goal">产出：教案文档 + 三层任务单</div></div>
+      </div>
+      <div class="task-select-card" onclick="APP.selectTask('B', this)">
+        <div class="task-card-top"><div class="task-badge bg-green">B</div><div class="task-card-name">错题诊断+分层练习</div><div class="task-card-subjects">数学、理科</div><div class="task-card-goal">产出：错题分析表 + 分层练习</div></div>
+      </div>
+      <div class="task-select-card" onclick="APP.selectTask('C', this)">
+        <div class="task-card-top"><div class="task-badge bg-purple">C</div><div class="task-card-name">PBL项目设计</div><div class="task-card-subjects">全学科</div><div class="task-card-goal">产出：PBL方案文档</div></div>
+      </div>
+      <div class="task-select-card" onclick="APP.selectTask('D', this)">
+        <div class="task-card-top"><div class="task-badge bg-orange">D</div><div class="task-card-name">教学PPT生成</div><div class="task-card-subjects">全学科</div><div class="task-card-goal">产出：可用PPT文件</div></div>
+      </div>
+      <div class="task-select-card" onclick="APP.selectTask('E', this)">
+        <div class="task-card-top"><div class="task-badge bg-pink">E</div><div class="task-card-name">家校沟通+学情总结</div><div class="task-card-subjects">班主任、年级组长</div><div class="task-card-goal">产出：家长信 + 学情报告</div></div>
+      </div>
+    </div>
+    <div class="tip-box" id="selectTip" style="display:none;">
+      <strong>已选择任务 <span id="selectedTaskName"></span>！</strong> 点击下方"我的任务提示词"查看你的专属提示词。
+      <button class="copy-btn" style="margin-left:12px;" onclick="goSection('mytask')">前往我的任务</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 教师需求图谱（培训认知起点） ===== -->
+<div class="section" id="demandatlas">
+  <div class="section-header">
+    <div class="section-badge badge-orange">认知起点</div>
+    <h2 class="section-title">🗺️ 教师需求图谱：AI 能帮你做什么</h2>
+  </div>
+  <p class="section-subtitle">先看清：哪些需求今天培训就能动手做出成品，哪些适合后续试点，哪些是长期探索方向</p>
+  <div class="card card-highlight">
+    <div class="info-box"><strong>怎么用这张图谱？</strong>先浏览「🟢 今天就能做」里有没有你正想解决的教学痛点——有，就在下方学习过程中重点完成对应任务。黄色和蓝色是后续可以延伸的方向，今天先了解、不着急。</div>
+  </div>
+  <div id="demandAtlasContainer"></div>
+  <div class="card" style="text-align:center;background:var(--gradient-celebrate);border:none;padding:28px;margin-top:20px;">
+    <p style="font-size:17px;font-weight:700;color:var(--ink);margin-bottom:8px;">准备好了吗？从认知关开始你的学习之旅</p>
+    <p style="font-size:14px;color:var(--ink-soft);margin-bottom:16px;">先用5个知识关建立对AI的清晰认知，再动手完成实操任务</p>
+    <button class="complete-btn done" style="padding:12px 28px;font-size:15px;" onclick="goSection('activitySection')">开始学习 →</button>
+  </div>
+</div>
+
+<!-- 上半场 -->
+<div class="phase-divider"><span>上半场 · 跟着讲师操作</span></div>
+
+<!-- 单步聚焦活动视图（默认主入口，覆盖下方8个act section） -->
+<div class="section" id="activitySection">
+  <div class="activity-stepmap-bar" id="stepMapBar">
+    <div class="step-map" id="stepMap"></div>
+  </div>
+  <div id="activityView"></div>
+</div>
+
+<!-- Step 1 -->
+<div class="section" id="act1">
+  <div class="card card-highlight">
+    <div class="card-header"><div class="card-title"><span class="section-badge badge-blue">第一步 · 8-18分钟</span> 提示词入门：不是提问，是下任务</div><button class="complete-btn" onclick="APP.toggleComplete(1)">完成 +10分</button></div>
+    <div class="info-box"><strong>你要学会的：</strong>用一句话给AI下一个清晰的教学任务，而不是泛泛地问。</div>
+    <h4 style="font-weight:700;margin:16px 0 12px;">提示词八要素公式</h4>
+    <div class="prompt-block"><div class="prompt-header"><span class="prompt-label">记住这个公式</span></div><div class="prompt-code">角色 + 场景 + 目标 + 学情 + 材料 + 约束 + 输出格式 + 评价标准</div></div>
+    <h4 style="font-weight:700;margin:20px 0 12px;">看看区别</h4>
+    <div style="margin-bottom:16px;">
+      <p style="font-weight:600;font-size:14px;margin-bottom:8px;">📋 写教案</p>
+      <div class="compare-grid">
+        <div class="compare-card compare-bad"><div class="compare-label">✗ 太笼统</div><div class="compare-text">"帮我写一个教案"</div></div>
+        <div class="compare-card compare-good"><div class="compare-label">✓ 够具体</div><div class="compare-text">"你是一名小学语文教研员。请基于四年级上册《爬山虎的脚》一课，结合本班学生识字基础偏弱、课堂时间40分钟、要突出分层和课堂活动，输出学习目标、问题链、分层任务、板书设计和评价量规。"</div></div>
+      </div>
+    </div>
+    <div style="margin-bottom:16px;">
+      <p style="font-weight:600;font-size:14px;margin-bottom:8px;">📊 分析错题</p>
+      <div class="compare-grid">
+        <div class="compare-card compare-bad"><div class="compare-label">✗ 太笼统</div><div class="compare-text">"帮我分析错题"</div></div>
+        <div class="compare-card compare-good"><div class="compare-label">✓ 够具体</div><div class="compare-text">"你是一名数学学情分析助手。以下是五年级10名学生'异分母分数加减法'的答题统计……请输出：共性错误排序、错因假设、3分钟讲解稿、2道例题、3道变式题、分层补救建议。"</div></div>
+      </div>
+    </div>
+    <div class="tip-box"><strong>三句话记住怎么写提示词：</strong><ol style="margin:8px 0 0 20px;"><li>先说清<strong>给谁用</strong>——角色和对象</li><li>再说清<strong>要解决什么教学问题</strong>——目标和学情</li><li>最后说清<strong>输出成什么样</strong>——格式和评价标准</li></ol></div>
+  </div>
+  <div id="resources_act1"></div>
+</div>
+
+<!-- Step 2 -->
+<div class="section" id="act2">
+  <div class="card card-accent">
+    <div class="card-header"><div class="card-title"><span class="section-badge badge-orange">第二步 · 18-28分钟</span> 首次上手：跟着讲师操作</div><button class="complete-btn" onclick="APP.toggleComplete(2)">完成 +10分</button></div>
+    <div class="warn-box"><strong>这是你第一次操作WorkBuddy的环节。</strong>跟着讲师投屏一步一步做，不用怕出错。三步操作完成后，你就基本会用这个平台了。</div>
+    <h4 style="font-weight:700;margin:16px 0 8px;">操作一：发第一条消息（3分钟）</h4>
+    <p style="font-size:14px;color:var(--gray-600);margin-bottom:8px;">在对话框里输入下面这段话，把方括号里的内容换成你自己的真实信息，然后发送：</p>
+    <div class="prompt-block"><div class="prompt-header"><span class="prompt-label">第一条消息 · 点击复制</span><button class="copy-btn" onclick="APP.copyPrompt(this)">复制</button></div><div class="prompt-code">你好，我是一名[小学语文/数学/英语……]老师，教[年级]。
+今天来学习用AI辅助教学。
+请用一句话告诉我你能帮我做什么。</div></div>
+    <div class="tip-box"><strong>发送后等AI回复——这就是你的第一次AI对话！</strong>如果没收到回复，举手找讲师帮忙。</div>
+    <h4 style="font-weight:700;margin:20px 0 8px;">操作二：上传一个文件（3分钟）</h4>
+    <div class="bullet-list"><li>找到上传按钮（讲师会指给你看）</li><li>用手机拍一页你正在用的教材，或者上传提前准备好的教材PDF/图片</li><li>输入下面这句话发送：</li></div>
+    <div class="prompt-block"><div class="prompt-header"><span class="prompt-label">上传文件后的指令 · 点击复制</span><button class="copy-btn" onclick="APP.copyPrompt(this)">复制</button></div><div class="prompt-code">请帮我看看这个文件的内容，用3句话总结</div></div>
+    <div class="tip-box"><strong>恭喜！你已经掌握了WorkBuddy的全部基础操作：</strong>打字说话、上传文件、看结果。下半场就用这三个动作来完成你的教学成品。</div>
+  </div>
+  <div id="resources_act2"></div>
+</div>
+
+<!-- Step 3 -->
+<div class="section" id="act3">
+  <div class="card card-highlight">
+    <div class="card-header"><div class="card-title"><span class="section-badge badge-blue">第三步 · 28-40分钟</span> 认识WorkBuddy的五种能力</div><button class="complete-btn" onclick="APP.toggleComplete(3)">完成 +10分</button></div>
+    <div class="info-box"><strong>这一步你只需要看和听。</strong>讲师会演示WorkBuddy能做什么，你重点理解每种能力能帮你解决什么教学问题。</div>
+    <div style="display:grid;gap:16px;margin:16px 0;">
+      <div style="background:var(--surface);border:1px solid var(--gray-200);border-radius:var(--radius);padding:20px;border-left:4px solid var(--primary);"><h4 style="font-size:16px;font-weight:700;margin-bottom:8px;">① 对话即任务</h4><p style="font-size:14px;color:var(--gray-600);">你说什么，AI就做什么。不需要搭建，开口就说。</p></div>
+      <div style="background:var(--surface);border:1px solid var(--gray-200);border-radius:var(--radius);padding:20px;border-left:4px solid var(--primary);"><h4 style="font-size:16px;font-weight:700;margin-bottom:8px;">② 文件即知识库</h4><p style="font-size:14px;color:var(--gray-600);">上传教材PDF，AI就基于你的教材来回答，不凭空编造。</p></div>
+      <div style="background:var(--surface);border:1px solid var(--gray-200);border-radius:var(--radius);padding:20px;border-left:4px solid var(--primary);"><h4 style="font-size:16px;font-weight:700;margin-bottom:8px;">③ 一段话串流程</h4><p style="font-size:14px;color:var(--gray-600);">"先分析错题，再生成讲解，最后出练习"——一句话，AI自动分步完成。</p></div>
+      <div style="background:var(--surface);border:1px solid var(--gray-200);border-radius:var(--radius);padding:20px;border-left:4px solid var(--primary);"><h4 style="font-size:16px;font-weight:700;margin-bottom:8px;">④ 成品直接出</h4><p style="font-size:14px;color:var(--gray-600);">不只是聊天文字，AI能直接生成可下载的文件。</p></div>
+      <div style="background:var(--accent-light);border:1px solid var(--accent-border);border-radius:var(--radius);padding:20px;border-left:4px solid var(--accent);"><h4 style="font-size:16px;font-weight:700;margin-bottom:8px;color:var(--accent-strong);">⑤ 技能即工具箱（重点！）</h4><p style="font-size:14px;color:var(--accent-strong);">内置PPT/Excel/Word/PDF/图片等技能，一句话就能生成可下载的文件成品。这是<strong>你下半场要用的核心能力</strong>。</p></div>
+    </div>
+    <h4 style="font-weight:700;margin:20px 0 12px;">技能速查表</h4>
+    <div class="skill-grid">
+      <div class="skill-card"><div class="skill-icon">📊</div><div class="skill-name">PPT生成</div><div class="skill-format">.pptx 演示文稿</div><div class="skill-scenes">教学课件、公开课PPT、班会PPT</div><div class="skill-trigger">说 <strong>"做成PPT"</strong></div></div>
+      <div class="skill-card"><div class="skill-icon">📈</div><div class="skill-name">Excel生成</div><div class="skill-format">.xlsx 电子表格</div><div class="skill-scenes">错题分析表、成绩统计、练习清单</div><div class="skill-trigger">说 <strong>"做成Excel"</strong></div></div>
+      <div class="skill-card"><div class="skill-icon">📄</div><div class="skill-name">Word文档</div><div class="skill-format">.docx 文档</div><div class="skill-scenes">教案文档、家长信、教研报告</div><div class="skill-trigger">说 <strong>"做成Word"</strong></div></div>
+      <div class="skill-card"><div class="skill-icon">📑</div><div class="skill-name">PDF生成</div><div class="skill-format">.pdf 文档</div><div class="skill-scenes">学情报告、PBL方案、可打印资料</div><div class="skill-trigger">说 <strong>"做成PDF"</strong></div></div>
+      <div class="skill-card"><div class="skill-icon">🎨</div><div class="skill-name">图片生成</div><div class="skill-format">.png/.jpg 图片</div><div class="skill-scenes">课件配图、PBL情境图、对话场景图</div><div class="skill-trigger">说 <strong>"生成一张图片"</strong></div></div>
+    </div>
+  </div>
+  <div id="resources_act3"></div>
+</div>
+
+<!-- Step 4 -->
+<div class="section" id="act4">
+  <div class="card card-highlight">
+    <div class="card-header"><div class="card-title"><span class="section-badge badge-blue">第四步 · 40-52分钟</span> 观看完整演示</div><button class="complete-btn" onclick="APP.toggleComplete(4)">完成 +10分</button></div>
+    <div class="info-box"><strong>这一步你只需要看。</strong>讲师会演示"一个单元变成一套教学成品"的完整过程，注意看每一步操作和产出。</div>
+    <h4 style="font-weight:700;margin:16px 0 12px;">演示流程</h4>
+    <div class="table-wrap"><table><thead><tr><th style="width:50px;">步骤</th><th>讲师做什么</th><th>产出什么</th></tr></thead><tbody>
+      <tr><td>①</td><td>输入单元信息和学情</td><td>—</td></tr>
+      <tr><td>②</td><td>用提示词模板生成教案</td><td>教案文本</td></tr>
+      <tr><td>③</td><td>让AI生成分层任务单</td><td>分层任务单</td></tr>
+      <tr><td>④</td><td>让AI生成课堂互动题</td><td>互动题集</td></tr>
+      <tr><td style="color:var(--accent);font-weight:700;">⑤</td><td><strong>用技能生成PPT</strong></td><td><strong style="color:var(--success);">可下载PPT文件</strong></td></tr>
+      <tr><td style="color:var(--accent);font-weight:700;">⑥</td><td><strong>下载并打开PPT</strong></td><td><strong style="color:var(--success);">真实文件展示</strong></td></tr>
+    </tbody></table></div>
+    <div class="tip-box"><strong>看演示时注意：</strong>这不是"AI帮我写一段话"，而是"AI帮我把一个单元变成一套教学材料包"。下半场你也要做同样的事。</div>
+  </div>
+  <div id="resources_act4"></div>
+</div>
+
+<!-- 下半场 -->
+<div class="phase-divider"><span>下半场 · 你来动手做</span></div>
+
+<div class="card" id="secondHalfBanner" style="background:var(--gradient-celebrate);border:none;text-align:center;padding:32px;">
+  <h3 style="font-size:20px;font-weight:800;color:var(--gray-900);margin-bottom:8px;">下半场开始！</h3>
+  <p style="font-size:15px;color:var(--gray-600);">接下来你将和同组老师一起，用WorkBuddy做出一份真实可用的教学成品。</p>
+  <p style="font-size:14px;color:var(--gray-500);margin-top:8px;">如果还没选择任务，请<a href="javascript:goSection('choose')" style="color:var(--primary);font-weight:600;">点击这里选择</a></p>
+</div>
+
+<!-- Step 5 -->
+<div class="section" id="act5">
+  <div class="card card-success">
+    <div class="card-header"><div class="card-title"><span class="section-badge badge-green">第五步 · 0-10分钟</span> 生成你的第一版</div><button class="complete-btn" onclick="APP.toggleComplete(5)">完成 +10分</button></div>
+    <div class="quote quote-success"><strong>跟着讲师一起做</strong>——复制提示词模板，填入你的真实信息，发送给AI。</div>
+    <div class="step-list success">
+      <li><strong>找到你的任务提示词</strong><p style="font-size:14px;color:var(--gray-600);margin-top:4px;">如果你已经选了任务，点击<a href="javascript:goSection('mytask')" style="color:var(--primary);font-weight:600;">"我的任务提示词"</a>查看你的专属模板。</p></li>
+      <li><strong>复制提示词到WorkBuddy对话框</strong><p style="font-size:14px;color:var(--gray-600);margin-top:4px;">点击提示词旁边的"复制"按钮，然后粘贴到WorkBuddy的对话框里。</p></li>
+      <li><strong>替换方括号里的内容</strong><p style="font-size:14px;color:var(--gray-600);margin-top:4px;">把 [年级]、[课题]、[学情] 等方括号里的内容，替换成你自己的真实信息。</p></li>
+      <li><strong>发送，等AI生成结果</strong><p style="font-size:14px;color:var(--gray-600);margin-top:4px;">点击发送，等待AI生成。通常几秒到十几秒就能出结果。</p></li>
+    </div>
+    <div class="tip-box"><strong>完成这一步后：</strong>你已经有了AI生成的第一版内容。先不要急着改——通读一遍，标记满意和不满意的地方。</div>
+  </div>
+  <div id="resources_act5"></div>
+</div>
+
+<!-- Step 6 -->
+<div class="section" id="act6">
+  <div class="card card-highlight">
+    <div class="card-header"><div class="card-title"><span class="section-badge badge-blue">第六步 · 10-25分钟</span> 优化你的第一版</div><button class="complete-btn" onclick="APP.toggleComplete(6)">完成 +10分</button></div>
+    <div class="info-box"><strong>这一步你要做的：</strong>让AI根据你的真实素材和反馈来改进第一版。</div>
+    <h4 style="font-weight:700;margin:16px 0 8px;">怎么优化？三种方式</h4>
+    <div class="step-list">
+      <li><strong>上传教材让AI改进</strong><div class="prompt-block"><div class="prompt-header"><span class="prompt-label">优化指令 · 点击复制</span><button class="copy-btn" onclick="APP.copyPrompt(this)">复制</button></div><div class="prompt-code">请基于我上传的教材内容，改进上面的教案，确保贴合教材的重难点和知识点</div></div></li>
+      <li><strong>补充学情信息</strong><div class="prompt-block"><div class="prompt-header"><span class="prompt-label">优化指令 · 点击复制</span><button class="copy-btn" onclick="APP.copyPrompt(this)">复制</button></div><div class="prompt-code">我的学生情况补充：[比如"本班有3名学生基础很薄弱，需要额外关注；大部分学生能跟上但缺乏主动思考习惯"]。
+请根据这个学情调整教学设计。</div></div></li>
+      <li><strong>直接说不满意的地方</strong><div class="prompt-block"><div class="prompt-header"><span class="prompt-label">修改指令 · 点击复制</span><button class="copy-btn" onclick="APP.copyPrompt(this)">复制</button></div><div class="prompt-code">以下地方需要修改：
+1. [比如"导入部分太长了，请缩短到2分钟内"]
+2. [比如"分层任务的基础层太简单了，请适当提高难度"]
+3. [比如"评价标准太笼统，请给出具体的评分标准"]
+请修改后重新输出。</div></div></li>
+    </div>
+    <div class="tip-box"><strong>记住：</strong>先求"能用"，不要卡在"完美"。不满意就跟AI说，这就是迭代。</div>
+  </div>
+  <div id="resources_act6"></div>
+</div>
+
+<!-- Step 7 -->
+<div class="section" id="act7">
+  <div class="card card-accent">
+    <div class="card-header"><div class="card-title"><span class="section-badge badge-orange">第七步 · 25-40分钟</span> 设计你的专属技能：把经验变成可复用的"AI助手"</div><button class="complete-btn" onclick="APP.toggleComplete(7)">完成 +10分</button></div>
+    <div class="quote quote-accent"><strong>这是整场培训最让你惊喜的一步。</strong>你已经会用平台内置的技能了——现在，把你自己的专业经验，设计成一个<strong>专属技能</strong>，让AI每次都按你的标准做事。</div>
+
+    <div class="info-box"><strong>什么是"专属技能"？</strong>把你反复在用的教学经验（比如你的教案审核标准、你的分层出题套路、你的家长信风格），写成一套清晰的指令模板。写好之后，<strong>以后一句话就能触发，AI自动按你的标准执行</strong>——不用每次都重新描述一遍。</div>
+
+    <h4 style="font-weight:700;margin:20px 0 8px;">为什么要设计专属技能？</h4>
+    <div class="step-list accent">
+      <li><strong>把经验固化下来</strong>——你的教学智慧不再只存在脑子里，而是变成AI能反复执行的标准流程</li>
+      <li><strong>一次设计，永久复用</strong>——设计好后，每次备课、出题、写文案都能一键调用</li>
+      <li><strong>分享给团队</strong>——把好技能分享给同组、同校老师，让整个教研组都用同一套高质量标准</li>
+    </div>
+
+    <h4 style="font-weight:700;margin:20px 0 8px;">设计专属技能的三步法</h4>
+    <div class="step-list">
+      <li><strong>找到你反复在做的事</strong><p style="font-size:14px;color:var(--gray-600);margin-top:4px;">想想哪些教学任务你每次都要重复交代同样的要求？比如"分层出题总是要强调基础5题+发展4题+挑战3题"。</p></li>
+      <li><strong>把要求写成清晰的指令模板</strong><p style="font-size:14px;color:var(--gray-600);margin-top:4px;">用提示词的方式，把你的标准、流程、输出格式写成一个完整的"技能说明书"。</p></li>
+      <li><strong>给技能起个名字，以后一句话触发</strong><p style="font-size:14px;color:var(--gray-600);margin-top:4px;">比如命名为"我的分层出题"，以后只需说"用我的分层出题技能"，AI就按你的标准执行。</p></li>
+    </div>
+
+    <h4 style="font-weight:700;margin:20px 0 8px;">实操：设计你的第一个专属技能</h4>
+    <p style="font-size:14px;color:var(--gray-600);margin-bottom:8px;">从下面挑一个最贴合你的场景，复制对应模板到WorkBuddy，按提示补全你的标准：</p>
+
+    <div class="prompt-block"><div class="prompt-header"><span class="prompt-label">技能模板1：我的教案审核标准 · 点击复制</span><button class="copy-btn" onclick="APP.copyPrompt(this)">复制</button></div><div class="prompt-code">请帮我创建一个名为"我的教案审核"的专属技能。
+这个技能的作用：每次我上传或粘贴一份教案，你都要按以下我的专属标准审核：
+
+我的审核标准（请帮我补全并细化）：
+1. 学习目标：必须包含[新课标核心素养，请填写你学科的具体素养]
+2. 学情匹配：必须考虑[本班学生的薄弱点，请填写]
+3. 分层任务：必须有基础/发展/挑战三层，且[我的分层要求，请填写]
+4. 评价标准：必须[可量化/可操作，我的要求是：请填写]
+
+请把这套标准整理成一份清晰的技能说明书，以后我叫"审核教案"你就按这个执行。</div></div>
+
+    <div class="prompt-block"><div class="prompt-header"><span class="prompt-label">技能模板2：我的分层出题套路 · 点击复制</span><button class="copy-btn" onclick="APP.copyPrompt(this)">复制</button></div><div class="prompt-code">请帮我创建一个名为"我的分层出题"的专属技能。
+这个技能的作用：我说一个知识点，你就按我固定的套路出题：
+
+我的出题套路：
+- 基础层：[5]道基础题，覆盖核心知识点，[我的基础题要求：请填写]
+- 发展层：[4]道应用题，需要迁移理解，[我的发展题要求：请填写]
+- 挑战层：[3]道综合题，需要多步推理，[我的挑战题要求：请填写]
+- 每道题附答案和解析
+- 难度要[适合我班学生的水平，请填写]
+
+请把这套标准整理成技能说明书，以后我说"分层出题"你就按这个执行。</div></div>
+
+    <div class="prompt-block"><div class="prompt-header"><span class="prompt-label">技能模板3：我的家长信风格 · 点击复制</span><button class="copy-btn" onclick="APP.copyPrompt(this)">复制</button></div><div class="prompt-code">请帮我创建一个名为"我的家长信"的专属技能。
+这个技能的作用：每次我告诉你一件事，你就帮我写一封符合我个人风格的家长信：
+
+我的风格要求：
+- 语气：[温暖、鼓励、不贴负面标签，请按需调整]
+- 结构：先说事实，再说进步，最后给一个具体的下一步建议
+- 字数：[家长信不超过300字 / 微信群消息不超过100字，请选择]
+- 绝不：[给学生贴标签 / 用命令语气，请补充你的底线]
+
+请把这套风格整理成技能说明书，以后我说"写家长信"你就按这个执行。</div></div>
+
+    <div class="tip-box"><strong>设计完专属技能后，你可以：</strong><div class="bullet-list" style="margin-top:8px;"><li>马上测试它——说一句"用我的XX技能"，看AI是否按你的标准执行</li><li>持续优化它——不满意就告诉AI"调整我的XX技能，把XX标准改成XX"</li><li>分享给同事——把你设计好的技能说明发给同组老师，他们也能用</li></div></div>
+
+    <div class="warn-box"><strong>重要提醒：</strong>专属技能是你教学经验的沉淀，它越用越准。但记住——AI执行的是你定的标准，<strong>标准本身的质量决定了产出的质量</strong>。所以设计技能时，把你的专业判断写清楚、写具体。</div>
+  </div>
+  <div id="resources_act7"></div>
+</div>
+
+<!-- Step 8 -->
+<div class="section" id="act8">
+  <div class="card card-success">
+    <div class="card-header"><div class="card-title"><span class="section-badge badge-green">第八步 · 40-53分钟</span> 打造教研智能体：用vibe coding建你的校本知识库</div><button class="complete-btn" onclick="APP.toggleComplete(8)">完成 +10分</button></div>
+    <div class="quote quote-success"><strong>这是整场培训的最高潮，也是你迈向"AI教研合伙人"的起点。</strong>前7步你学会了用对话、知识库、技能做单份成品——现在，用<strong>vibe coding</strong>把它们串联成一个能持续服务教研组的<strong>智能体</strong>。</div>
+
+    <div class="info-box"><strong>什么是 vibe coding？</strong>就是<strong>用说话的方式指挥AI写代码、搭工具</strong>。你不用懂任何编程语法，只需用自然语言告诉AI"我要一个什么样的工具"，它就帮你实现。今天你体验的WorkBuddy、龙虾助手，背后都是这样"说"出来的。</div>
+
+    <h4 style="font-weight:700;margin:20px 0 8px;">什么是"教研智能体"？</h4>
+    <p style="font-size:15px;color:var(--gray-600);margin-bottom:16px;">教研智能体 = <strong>校本知识库 + 教研组技能 + 持续记忆</strong>。它把组里的优质教案、易错题、评价量规、学情数据沉淀成AI能调用的知识，让<strong>组里任何人问一句，都能得到团队经验的积累</strong>——而且越用越聪明。</p>
+
+    <div class="step-list success">
+      <li><strong>校本知识库（喂给它经验）</strong><p style="font-size:14px;color:var(--gray-600);margin-top:4px;">把教研组的优质教案、往届易错题、评价量规上传，让AI基于这些"团队资产"回答，而不是凭空编造。</p></li>
+      <li><strong>教研组技能（让它按标准做事）</strong><p style="font-size:14px;color:var(--gray-600);margin-top:4px;">把第七步设计的专属技能（教案审核、分层出题等）接入，让智能体每次都按组里的统一标准执行。</p></li>
+      <li><strong>vibe coding（用说话搭建）</strong><p style="font-size:14px;color:var(--gray-600);margin-top:4px;">用自然语言告诉AI你要什么功能，它帮你把知识库、技能、流程串成一个完整的教研助手。</p></li>
+    </div>
+
+    <h4 style="font-weight:700;margin:20px 0 8px;">实操：用vibe coding打造你的第一个教研智能体</h4>
+    <p style="font-size:14px;color:var(--gray-600);margin-bottom:8px;">复制下面的指令到WorkBuddy，按提示把你的教研组资产喂给它：</p>
+
+    <div class="prompt-block"><div class="prompt-header"><span class="prompt-label">vibe coding指令：搭建教研智能体 · 点击复制</span><button class="copy-btn" onclick="APP.copyPrompt(this)">复制</button></div><div class="prompt-code">请帮我打造一个"教研智能体"，它要具备以下能力：
+
+1. 【校本知识库】我会陆续上传我们教研组的优质教案、易错题统计、评价量规。
+   请基于这些资料回答问题，并在回答时注明依据来自哪份资料。
+   如果资料里没有相关内容，请明确说"资料库中暂无"，不要编造。
+
+2. 【教研组技能】请接入以下我之前设计的专属技能（如果没有，先帮我创建）：
+   - "分层出题"：按我们组的标准出基础/发展/挑战三层练习
+   - "教案审核"：按六维度审核教案质量
+
+3. 【持续记忆】请记住：
+   - 我们组的学科和年级：[填写，如"小学数学中年级"]
+   - 我们学生的普遍薄弱点：[填写]
+   - 我们偏好的教案风格：[填写]
+
+4. 【工作流程】当我说"备这节课"时，请自动：
+   先从知识库找相关优质教案参考 → 按我们的风格生成新教案 → 用审核技能检查 → 最后给我可下载的成品
+
+请先确认你理解了，然后告诉我接下来该怎么把资料喂给你。</div></div>
+
+    <div class="tip-box"><strong>搭建好后，你可以这样用它：</strong><div class="bullet-list" style="margin-top:8px;"><li>"备三年级《分数的初步认识》" → 它自动走完整流程，给你一份基于本校经验的教案</li><li>"这道错题为什么学生总错？" → 它从知识库找往届同类错题，给错因分析和变式题</li><li>"帮新老师快速上手我们组的备课标准" → 它基于组里沉淀的教案给出示范</li></div></div>
+
+    <div class="warn-box"><strong>关键认知：</strong>教研智能体的水平，<strong>取决于你喂给它的内容质量</strong>。垃圾进、垃圾出。所以持续把组里的好课、好题、好量规沉淀进去，它才会越来越聪明——这就是"校本知识库"的价值：让团队经验不随人员流动而流失。</div>
+
+    <div class="card card-highlight" style="margin-top:20px;text-align:center;background:var(--gradient-celebrate);border:none;padding:28px;">
+      <p style="font-size:18px;font-weight:700;color:var(--ink);margin-bottom:8px;">🎉 你已经完成了全部13关！</p>
+      <p style="font-size:14px;color:var(--ink-soft);">从一个提示词，到一份教学成品，再到一个教研智能体——你现在拥有的不只是一个工具，而是一套可持续进化的教学能力体系。</p>
+    </div>
+  </div>
+  <div id="resources_act8"></div>
+</div>
+
+<!-- 展示 -->
+<div class="section" id="showcase">
+  <div class="card card-highlight" style="text-align:center;padding:32px;">
+    <h3 style="font-size:22px;font-weight:800;margin-bottom:16px;">展示与收获</h3>
+    <p style="font-size:15px;color:var(--gray-600);margin-bottom:24px;">每组1分钟，展示三个问题：</p>
+    <div class="step-list" style="text-align:left;max-width:500px;margin:0 auto;">
+      <li>我们做了什么</li>
+      <li><strong>展示生成的成品文件</strong>（打开PPT/Excel/Word/PDF给大家看）</li>
+      <li>下周准备用在哪一节课</li>
+    </div>
+    <div class="quote" style="text-align:left;margin-top:24px;font-size:16px;">"AI时代，老师最重要的能力不是让AI说得快，而是让AI服务于教学设计、学习过程和真实课堂。<strong>记住：先用对话把内容做对，再用技能把成品做出来。</strong>"</div>
+    <div style="margin-top:24px;padding:20px;background:var(--success-light);border-radius:12px;"><p style="font-size:16px;font-weight:700;color:var(--success);">你今天带走了什么？</p><p style="font-size:14px;color:var(--gray-600);margin-top:8px;">✓ 一个提示词模板 &nbsp; ✓ 一份技能生成的成品文件 &nbsp; ✓ 一个下周可试用的教学流程</p></div>
+  </div>
+</div>
+
+<!-- 成就墙 -->
+<div class="section" id="achievements">
+  <div class="section-header"><div class="section-badge badge-orange">我的成长</div><h2 class="section-title">🏆 我的成就</h2></div>
+  <p class="section-subtitle">完成学习步骤，解锁徽章，提升等级</p>
+  <div class="badges-grid" id="badgesWall"></div>
+</div>
+
+<!-- 排行榜 -->
+<div class="section" id="leaderboard">
+  <div class="section-header"><div class="section-badge badge-blue">我的成长</div><h2 class="section-title">📊 排行榜</h2></div>
+  <p class="section-subtitle">看看你的学习进度在全体学员中的排名</p>
+  <div id="leaderboardContainer"><div class="leaderboard-empty"><p>加载中...</p></div></div>
+</div>
+
+<!-- 我的任务提示词 -->
+<div class="section" id="mytask">
+  <div class="section-header"><div class="section-badge badge-purple">资源库</div><h2 class="section-title">我的任务提示词</h2></div>
+  <p class="section-subtitle">根据你选择的任务，这里是你下半场要用的提示词模板</p>
+  <div id="noTaskSelected" class="card" style="text-align:center;padding:40px;">
+    <p style="font-size:18px;color:var(--gray-500);margin-bottom:16px;">你还没有选择任务</p>
+    <p style="font-size:14px;color:var(--gray-400);margin-bottom:20px;">选择一个任务后，这里会显示你的专属提示词模板</p>
+    <button class="copy-btn" style="font-size:14px;padding:10px 24px;" onclick="goSection('choose')">去选择任务</button>
+  </div>
+  <div id="taskContent" style="display:none;"></div>
+</div>
+
+<!-- 全部模板 -->
+<div class="section" id="alltemplates">
+  <div class="section-header"><div class="section-badge badge-blue">资源库</div><h2 class="section-title">全部提示词模板</h2></div>
+  <p class="section-subtitle">7个提示词模板，随时可以复制使用</p>
+  <div id="allTemplatesContainer"></div>
+</div>
+
+<!-- 技能指南 -->
+<div class="section" id="skillguide">
+  <div class="section-header"><div class="section-badge badge-blue">资源库</div><h2 class="section-title">技能使用指南</h2></div>
+  <p class="section-subtitle">技能是WorkBuddy最重要的能力——一句话生成可下载文件成品</p>
+  <div class="card card-accent">
+    <div class="quote quote-accent"><strong>核心理念：先用对话把内容做对，再用技能把成品做出来。</strong></div>
+    <div class="step-list accent"><li><strong>先把内容用对话生成</strong>——教案、错题分析、PBL方案等</li><li><strong>告诉AI你要什么格式</strong>——"请把以上内容做成PPT/Excel/Word/PDF"</li><li><strong>等AI生成完成，下载文件，打开检查</strong>——不满意就告诉AI改哪里</li></div>
+  </div>
+  <div id="skillDetailsContainer"></div>
+  <div class="card"><h4 style="font-weight:700;margin-bottom:12px;">关键提醒</h4><div class="table-wrap"><table><thead><tr><th>提醒</th><th>说明</th></tr></thead><tbody>
+    <tr><td><strong>先有内容，再出成品</strong></td><td>技能是把已有内容转成文件。先在对话中把内容写好，再调用技能出成品</td></tr>
+    <tr><td><strong>一份内容，多种格式</strong></td><td>同一份教案可以生成Word版存档、PPT版上课、PDF版分享</td></tr>
+    <tr><td><strong>生成后必须检查</strong></td><td>下载后打开看：内容对不对？格式好不好？需要手动调整吗？</td></tr>
+    <tr><td><strong>不满意就追加指令</strong></td><td>"PPT再加一页板书设计""Excel多加一列难度等级"——直接说</td></tr>
+  </tbody></table></div></div>
+</div>
+
+<!-- 安全须知 -->
+<div class="section" id="safety">
+  <div class="section-header"><div class="section-badge badge-blue">资源库</div><h2 class="section-title">安全使用须知</h2></div>
+  <div class="card" style="border-left:4px solid var(--danger);">
+    <h4 style="font-weight:700;margin-bottom:12px;">六条红线，必须遵守</h4>
+    <div class="table-wrap"><table><thead><tr><th>风险</th><th>怎么做</th></tr></thead><tbody>
+      <tr><td><strong>学生隐私</strong></td><td>上传文件前先脱敏——去掉学生姓名、身份证号、家庭信息</td></tr>
+      <tr><td><strong>AI会出错</strong></td><td>AI生成的知识、解析、答案必须审核，不能直接用</td></tr>
+      <tr><td><strong>评价公平</strong></td><td>AI的评分只能做参考，正式评分权在教师手中</td></tr>
+      <tr><td><strong>学生依赖</strong></td><td>学生端AI要给提示不给答案，教学生先想再问</td></tr>
+      <tr><td><strong>版权合规</strong></td><td>只上传授权资料，生成内容注明AI辅助</td></tr>
+      <tr><td><strong>课堂关系</strong></td><td>AI在旁边，教师在中间，学生在活动中</td></tr>
+    </tbody></table></div>
+  </div>
+  <div class="card card-highlight">
+    <h4 style="font-weight:700;margin-bottom:12px;">学生AI使用公约（可生成）</h4>
+    <p style="font-size:14px;color:var(--gray-600);margin-bottom:16px;">复制以下指令发给AI，生成一份适合你班级的AI使用公约：</p>
+    <div class="prompt-block"><div class="prompt-header"><span class="prompt-label">学生公约生成指令 · 点击复制</span><button class="copy-btn" onclick="APP.copyPrompt(this)">复制</button></div><div class="prompt-code">请帮我生成一份适合[年级]学生的AI使用公约，要求：
+
+1. 向AI提问前，先写出自己的想法
+2. 让AI给提示，不让AI直接给最终答案
+3. 让AI解释为什么，而不是只要结果
+4. 把AI回答和课本、老师讲解、同伴讨论进行对照
+5. 提交作业时标明哪些地方使用过AI帮助
+
+请用学生能理解的语言，设计成一页可打印的公约卡片。</div></div>
+  </div>
+</div>
+
+<!-- 拓展学习中心 -->
+<div class="section" id="learnhub">
+  <div class="section-header"><div class="section-badge badge-green">拓展学习</div><h2 class="section-title">🌱 拓展学习中心</h2></div>
+  <p class="section-subtitle">培训结束后常回来看看，持续深入AI赋能教学</p>
+  <div class="card card-highlight">
+    <p style="font-size:15px;color:var(--gray-600);">本次培训只是AI赋能教学的起点。以下四大类工具和资源可以帮助你在日常教学中持续深入应用AI，从"会用AI"走向"用好AI"。</p>
+    <div class="tip-box"><strong>使用建议：</strong>不必全部尝试——选择1-2个最贴合你教学场景的工具开始，逐步扩展。每个工具都有官网链接，点击即可访问。</div>
+  </div>
+  <div class="category-grid" id="learnhubContainer"></div>
+</div>
+
+<!-- 工具资源库 -->
+<div class="section" id="toolhub">
+  <div class="section-header"><div class="section-badge badge-blue">资源库</div><h2 class="section-title">🔧 工具资源库</h2></div>
+  <p class="section-subtitle">19个AI教学工具和资源，按四大类别整理，点击访问官网</p>
+  <div id="toolhubContainer"></div>
+</div>
+
+</div><!-- /main -->
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- 底部版权 -->
+<footer class="site-footer">
+  <div class="footer-content">
+    <span class="footer-brand" id="footerSchool">开封求实外国语学校</span>
+    <span class="footer-sep">·</span>
+    <span>AI赋能教学实操培训平台</span>
+    <span class="footer-sep">·</span>
+    <span class="footer-powered">Powered by Purpose Plus Management Consulting Ltd</span>
+  </div>
+</footer>
+
+<!-- 脚本加载（顺序重要） -->
+<script src="./assets/gamify.js"></script>
+<script src="./assets/api.js"></script>
+<script src="./assets/auth.js"></script>
+<script src="./assets/app.js"></script>
+<script>
+// 初始化
+APP.init();
+</script>
+
+</body>
+</html>
