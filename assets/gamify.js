@@ -15,7 +15,7 @@ const POINT_RULES = {
   ALL_CLEAR_BONUS: 150,      // 13关全通
 };
 
-// 等级体系（8级）—— 理论满分约385分，可摸到 Lv.7
+// 等级体系（8级）—— 单次培训理论满分约415分，可摸到 Lv.7
 const LEVELS = [
   { lv: 1, name: 'AI新兵',     minPoints: 0,    color: 'lvl-1' },
   { lv: 2, name: '提示词学徒',  minPoints: 40,   color: 'lvl-2' },

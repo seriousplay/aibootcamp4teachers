@@ -609,6 +609,53 @@
     font-weight: 500;
   }
 
+  .loop-step.person {
+    background: rgba(45,140,240,0.12);
+    border-color: rgba(45,140,240,0.35);
+    color: var(--blue);
+    font-weight: 500;
+  }
+
+  .loop-step.agent {
+    background: rgba(123,97,255,0.12);
+    border-color: rgba(123,97,255,0.35);
+    color: #A88BFF;
+    font-weight: 500;
+  }
+
+  .loop-step.system {
+    background: rgba(0,229,160,0.12);
+    border-color: rgba(0,229,160,0.35);
+    color: var(--green);
+    font-weight: 500;
+  }
+
+  .loop-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .legend-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.12);
+    font-size: clamp(10px, 1vw, 14px);
+    color: var(--gray);
+    background: rgba(255,255,255,0.03);
+  }
+
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
   .loop-arrow {
     color: var(--dim);
     font-size: 18px;
@@ -620,6 +667,386 @@
     font-size: clamp(11px, 1.1vw, 16px);
     color: var(--gray);
     line-height: 1.6;
+  }
+
+  .loop-ring {
+    position: relative;
+    width: min(920px, 100%);
+    margin: 0 auto;
+    min-height: 500px;
+    border-radius: 24px;
+    background:
+      radial-gradient(circle at center, rgba(0,212,255,0.08), transparent 58%),
+      linear-gradient(180deg, rgba(10,22,40,0.96), rgba(10,22,40,0.86));
+    border: 1px solid rgba(45,140,240,0.18);
+    overflow: hidden;
+  }
+
+  .loop-ring::before {
+    content: '';
+    position: absolute;
+    inset: 14% 14%;
+    border-radius: 50%;
+    border: 1px dashed rgba(0,212,255,0.18);
+  }
+
+  .ring-node {
+    position: absolute;
+    width: 132px;
+    min-height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px 12px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.04);
+    color: var(--white);
+    font-weight: 700;
+    font-size: clamp(11px, 1.05vw, 15px);
+    line-height: 1.35;
+    backdrop-filter: blur(4px);
+    animation: pulseNode 3.2s ease-in-out infinite;
+  }
+
+  .ring-node.person {
+    border-color: rgba(45,140,240,0.35);
+    background: rgba(45,140,240,0.10);
+    color: var(--blue);
+  }
+
+  .ring-node.agent {
+    border-color: rgba(123,97,255,0.35);
+    background: rgba(123,97,255,0.10);
+    color: #A88BFF;
+  }
+
+  .ring-step {
+    position: absolute;
+    color: var(--gray);
+    font-size: clamp(9px, 0.9vw, 12px);
+    line-height: 1.4;
+    max-width: 140px;
+    text-align: center;
+    animation: fadeStep 3.2s ease-in-out infinite;
+  }
+
+  .ring-arrow {
+    position: absolute;
+    color: rgba(0,212,255,0.75);
+    font-size: 34px;
+    font-weight: 300;
+    animation: flowArrow 3.2s linear infinite;
+  }
+
+  .ring-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 210px;
+    height: 210px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,229,160,0.25);
+    background: radial-gradient(circle, rgba(0,229,160,0.10), rgba(0,229,160,0.02));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+    color: var(--green);
+    font-weight: 700;
+    line-height: 1.6;
+    box-shadow: 0 0 60px rgba(0,229,160,0.08);
+  }
+
+  .ring-center strong {
+    display: block;
+    color: var(--white);
+    font-size: clamp(15px, 1.6vw, 22px);
+    margin-top: 8px;
+  }
+
+  @keyframes pulseNode {
+    0%, 100% { transform: translateY(0); box-shadow: 0 0 0 rgba(0,0,0,0); }
+    50% { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.18); }
+  }
+
+  @keyframes fadeStep {
+    0%, 100% { opacity: 0.35; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes flowArrow {
+    0% { opacity: 0.25; transform: translateX(0); }
+    50% { opacity: 1; transform: translateX(6px); }
+    100% { opacity: 0.25; transform: translateX(0); }
+  }
+
+  .ring-link {
+    position: absolute;
+    color: rgba(0,212,255,0.8);
+    font-size: clamp(10px, 1vw, 14px);
+    text-align: center;
+    max-width: 120px;
+    line-height: 1.35;
+    animation: fadeStep 3.2s ease-in-out infinite;
+  }
+
+  .collab-map {
+    width: 100%;
+    max-width: 1120px;
+    display: grid;
+    grid-template-columns: 1.25fr 0.95fr;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .collab-panel {
+    background: rgba(13,30,56,0.88);
+    border: 1px solid rgba(45,140,240,0.2);
+    border-radius: 12px;
+    padding: 18px;
+  }
+
+  .collab-title {
+    font-size: clamp(15px, 1.5vw, 20px);
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 12px;
+  }
+
+  .collab-loop {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px 12px;
+    align-items: center;
+  }
+
+  .role-node {
+    min-height: 54px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: clamp(12px, 1.15vw, 16px);
+    font-weight: 700;
+    line-height: 1.35;
+    padding: 8px 10px;
+  }
+
+  .role-node.person {
+    color: var(--blue);
+    background: rgba(45,140,240,0.12);
+    border: 1px solid rgba(45,140,240,0.36);
+  }
+
+  .role-node.agent {
+    color: #A88BFF;
+    background: rgba(123,97,255,0.12);
+    border: 1px solid rgba(123,97,255,0.36);
+  }
+
+  .action-arrow {
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--cyan);
+    font-size: clamp(10px, 1vw, 13px);
+    line-height: 1.35;
+    text-align: center;
+    padding: 4px 6px;
+    border-bottom: 1px dashed rgba(0,212,255,0.25);
+  }
+
+  .loop-return {
+    grid-column: 1 / -1;
+    color: var(--green);
+    border: 1px dashed rgba(0,229,160,0.32);
+    background: rgba(0,229,160,0.06);
+    border-radius: 10px;
+    padding: 10px 14px;
+    text-align: center;
+    font-size: clamp(11px, 1.05vw, 14px);
+    line-height: 1.5;
+  }
+
+  .govern-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .govern-item {
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.035);
+    padding: 12px 14px;
+  }
+
+  .govern-label {
+    font-size: clamp(12px, 1.1vw, 15px);
+    color: var(--gold2);
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+
+  .govern-text {
+    font-size: clamp(10px, 0.98vw, 13px);
+    color: var(--gray);
+    line-height: 1.5;
+  }
+
+  .value-row {
+    width: 100%;
+    max-width: 1120px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 14px;
+  }
+
+  .value-card {
+    border-radius: 10px;
+    border: 1px solid rgba(0,212,255,0.18);
+    background: rgba(0,212,255,0.045);
+    padding: 14px 16px;
+  }
+
+  .value-card strong {
+    display: block;
+    color: var(--white);
+    font-size: clamp(13px, 1.2vw, 17px);
+    margin-bottom: 6px;
+  }
+
+  .value-card span {
+    display: block;
+    color: var(--gray);
+    font-size: clamp(10px, 0.98vw, 13px);
+    line-height: 1.5;
+  }
+
+  .topology-board {
+    width: min(1120px, 100%);
+    height: min(52vh, 500px);
+    min-height: 430px;
+    margin: 0 auto;
+    border: 1px solid rgba(45,140,240,0.2);
+    border-radius: 12px;
+    background:
+      linear-gradient(rgba(45,140,240,0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(45,140,240,0.045) 1px, transparent 1px),
+      radial-gradient(circle at center, rgba(0,229,160,0.08), transparent 48%),
+      rgba(13,30,56,0.82);
+    background-size: 36px 36px, 36px 36px, auto, auto;
+    overflow: hidden;
+  }
+
+  .topology-svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .top-node {
+    height: 100%;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(5,10,20,0.72);
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+  }
+
+  .top-node.person {
+    border-color: rgba(45,140,240,0.42);
+    background: rgba(45,140,240,0.12);
+  }
+
+  .top-node.agent {
+    border-color: rgba(123,97,255,0.42);
+    background: rgba(123,97,255,0.12);
+  }
+
+  .top-node-title {
+    color: var(--white);
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .top-node.person .top-node-title { color: var(--blue); }
+  .top-node.agent .top-node-title { color: #A88BFF; }
+
+  .top-io {
+    color: var(--gray);
+    font-size: 11px;
+    line-height: 1.35;
+  }
+
+  .top-io strong {
+    color: var(--white);
+    font-weight: 600;
+  }
+
+  .topology-caption {
+    fill: var(--white);
+    font-size: 24px;
+    font-weight: 700;
+  }
+
+  .topology-note {
+    fill: var(--gray);
+    font-size: 12px;
+  }
+
+  .topology-arrow {
+    fill: none;
+    stroke: rgba(0,212,255,0.75);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .topology-feedback {
+    fill: none;
+    stroke: rgba(0,229,160,0.82);
+    stroke-width: 3;
+    stroke-dasharray: 9 8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .topology-label {
+    fill: var(--cyan);
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .topology-loop-label {
+    fill: var(--green);
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .topology-pill {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+    border-radius: 999px;
+    border: 1px solid rgba(0,229,160,0.28);
+    background: rgba(0,229,160,0.08);
+    color: var(--green);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 0 14px;
   }
 
   .action-card {
@@ -668,7 +1095,7 @@
   <div class="slide slide-cover active" id="s1">
     <div class="corner-tl"></div>
     <div class="corner-br"></div>
-    <div class="slide-num">01 / 13</div>
+    <div class="slide-num">01 / 14</div>
 
     <div class="eyebrow">求实实验学校 · 教师专场 · AI赋能培训</div>
     <div class="eyebrow" style="margin-bottom:0.4em; color:var(--gray);">2026.06 · 教师与校领导专场</div>
@@ -689,7 +1116,7 @@
   <div class="slide" id="s2">
     <div class="corner-tl"></div>
     <div class="corner-br"></div>
-    <div class="slide-num">02 / 13</div>
+    <div class="slide-num">02 / 14</div>
     <div class="section-label">真实的起点</div>
 
     <h2 class="title-lg" style="margin-bottom: 8px; text-align:center;">你们学校，<span style="color:var(--cyan)">已经在用AI了</span></h2>
@@ -720,7 +1147,7 @@
   <div class="slide" id="s3">
     <div class="corner-tl"></div>
     <div class="corner-br"></div>
-    <div class="slide-num">03 / 13</div>
+    <div class="slide-num">03 / 14</div>
     <div class="section-label">眼见为实</div>
 
     <h2 class="title-lg" style="margin-bottom: 8px; text-align:center;">两天，一个人，一个AI助手</h2>
@@ -755,7 +1182,7 @@
   <div class="slide" id="s4">
     <div class="corner-tl"></div>
     <div class="corner-br"></div>
-    <div class="slide-num">04 / 13</div>
+    <div class="slide-num">04 / 14</div>
     <div class="section-label">生成式AI能力全图</div>
 
     <h2 class="title-lg" style="margin-bottom: 28px; text-align:center;">AI能做的，远比你以为的<span style="color:var(--gold2)">多</span></h2>
@@ -796,7 +1223,7 @@
   <div class="slide" id="s5">
     <div class="corner-tl"></div>
     <div class="corner-br"></div>
-    <div class="slide-num">05 / 13</div>
+    <div class="slide-num">05 / 14</div>
     <div class="section-label">人与AI的分工</div>
 
     <h2 class="title-lg" style="margin-bottom: 10px; text-align:center;">AI不是<span style="color:var(--red)">替代</span>你</h2>
@@ -831,7 +1258,7 @@
   <div class="slide" id="s6">
     <div class="corner-tl"></div>
     <div class="corner-br"></div>
-    <div class="slide-num">06 / 13</div>
+    <div class="slide-num">06 / 14</div>
     <div class="section-label">眼见为实</div>
 
     <h2 class="title-lg" style="margin-bottom: 8px; text-align:center;">现场演示 · <span style="color:var(--cyan)">你来出题</span></h2>
@@ -884,7 +1311,7 @@
   <div class="slide" id="s7">
     <div class="corner-tl"></div>
     <div class="corner-br"></div>
-    <div class="slide-num">07 / 13</div>
+    <div class="slide-num">07 / 14</div>
     <div class="section-label">入门：两个关键能力</div>
 
     <h2 class="title-lg" style="margin-bottom: 28px; text-align:center;">怎么和AI说话，决定了它能<span style="color:var(--cyan)">帮你多少</span></h2>
@@ -932,57 +1359,154 @@
   </div>
 
   <!-- ============ SLIDE 08 核心：闭环意识 ============ -->
-  <div class="slide" id="s8">
+  <div class="slide" id="s8" style="justify-content:flex-start; padding-top:4vh;">
     <div class="corner-tl"></div>
     <div class="corner-br"></div>
-    <div class="slide-num">08 / 13</div>
-    <div class="section-label">核心 · 闭环意识</div>
+    <div class="slide-num">08 / 14</div>
+    <div class="section-label">核心 · 回路意识</div>
 
-    <h2 class="title-lg" style="margin-bottom: 6px; text-align:center;">技术不是关键<br><span style="color:var(--gold2)">AI如何赋能真实教学场景的闭环</span>才是关键</h2>
-    <p class="subtitle" style="text-align:center; margin-bottom:28px; font-size:clamp(12px,1.3vw,18px);">以你们学校的作业智批为例</p>
+    <h2 class="title-lg" style="margin-bottom: 6px; text-align:center;">技术不是关键<br><span style="color:var(--gold2)">AI装进旧流程里，会发生什么</span></h2>
+    <p class="subtitle" style="text-align:center; margin-bottom:28px; font-size:clamp(12px,1.3vw,18px);">以初中数学“单元测后的错题讲评与分层补救”为例</p>
 
     <div class="loop-container">
       <div class="loop-box bad">
-        <div class="loop-label" style="color:var(--gold2);">◇ 现在的用法——AI批了，但还没发挥最大价值</div>
-        <div class="loop-flow">
-          <div class="loop-step bad">AI批改</div>
-          <span class="loop-arrow">→</span>
-          <div class="loop-step bad">老师还是全部再看一遍</div>
-          <span class="loop-arrow">→</span>
-          <div class="loop-step bad">省下的时间不明显</div>
-          <span class="loop-arrow">→</span>
-          <div class="loop-step bad">对批改结果利用不充分</div>
+        <div class="loop-label" style="color:var(--gold2);">◇ 把AI装进传统流程——看起来加了能力，实际上没改链路</div>
+        <div class="loop-legend">
+          <span class="legend-chip"><i class="legend-dot" style="background:var(--blue)"></i>人</span>
+          <span class="legend-chip"><i class="legend-dot" style="background:#A88BFF"></i>作业批改系统</span>
         </div>
-        <div class="loop-result" style="color:var(--gray);">现状：工具用起来了，价值还可以再挖</div>
-      </div>
-
-      <div class="loop-box good">
-        <div class="loop-label" style="color:var(--green);">✓ 正确的循环——让每次教学都喂养下一次</div>
         <div class="loop-flow">
-          <div class="loop-step good">AI批改</div>
-          <span class="loop-arrow">→</span>
-          <div class="loop-step highlight">标记高频错题</div>
-          <span class="loop-arrow">→</span>
-          <div class="loop-step good">老师只看错题集中的部分</div>
-          <span class="loop-arrow">→</span>
-          <div class="loop-step highlight">针对性调整下次教学</div>
-          <span class="loop-arrow">→</span>
-          <div class="loop-step good">AI再批改（更准）</div>
+          <div class="loop-step person">学生</div>
+          <span class="loop-arrow">→ 交卷</span>
+          <div class="loop-step agent">作业批改系统</div>
+          <span class="loop-arrow">→ 批改</span>
+          <div class="loop-step person">老师</div>
+          <span class="loop-arrow">→ 全部再核一遍</span>
+          <div class="loop-step person">老师</div>
+          <span class="loop-arrow">→ 统一讲评</span>
+          <div class="loop-step person">学生</div>
+          <span class="loop-arrow">→ 同一套订正</span>
         </div>
-        <div class="loop-result" style="color:var(--green);">结果：老师把精力集中到真正需要人的环节，批改数据反哺教学</div>
+        <div class="loop-result" style="color:var(--gray);">结果：局部看批改更快，但老师和学生的时间都没有实质性减少，学习效果也看不到显著提升。</div>
       </div>
     </div>
+  </div>
 
-    <div class="quote-center" style="margin-top:22px; font-size:clamp(14px,1.8vw,24px);">
-      <strong style="color:var(--cyan);">同一个工具，流程设计不同，效果天差地别</strong>
+  <!-- ============ SLIDE 09 正确的回路 ============ -->
+  <div class="slide" id="s9" style="justify-content:flex-start; padding-top:4vh;">
+    <div class="corner-tl"></div>
+    <div class="corner-br"></div>
+    <div class="slide-num">09 / 14</div>
+    <div class="section-label">核心 · 回路展开</div>
+
+    <h2 class="title-lg" style="margin-bottom: 8px; text-align:center;">人机协作回路，要看见<span style="color:var(--gold2)">节点重构</span></h2>
+    <p class="subtitle" style="text-align:center; margin-bottom:16px;">智能体不只是工具，而是有输入、有输出、可治理、可进化的执行节点</p>
+
+    <div class="topology-board">
+      <svg class="topology-svg" viewBox="0 0 1120 540" role="img" aria-label="人机协作业务回路拓扑图">
+        <defs>
+          <marker id="arrow-cyan" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(0,212,255,0.8)"></path>
+          </marker>
+          <marker id="arrow-green" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(0,229,160,0.88)"></path>
+          </marker>
+        </defs>
+
+        <text x="36" y="34" class="topology-caption">人机协作回路节点重构</text>
+        <text x="36" y="60" class="topology-note">AI智能体与老师、学生平行成为执行节点；每个节点都有明确输入和输出。</text>
+
+        <foreignObject x="450" y="32" width="230" height="104">
+          <div xmlns="http://www.w3.org/1999/xhtml" class="top-node agent">
+            <div class="top-node-title">作业智能体</div>
+            <div class="top-io"><strong>输入</strong> 教学目标 / 历史错因</div>
+            <div class="top-io"><strong>输出</strong> 作业任务 / 下一轮策略</div>
+          </div>
+        </foreignObject>
+
+        <foreignObject x="820" y="170" width="220" height="104">
+          <div xmlns="http://www.w3.org/1999/xhtml" class="top-node person">
+            <div class="top-node-title">学生</div>
+            <div class="top-io"><strong>输入</strong> 作业任务 / 补救练习</div>
+            <div class="top-io"><strong>输出</strong> 作答数据 / 掌握变化</div>
+          </div>
+        </foreignObject>
+
+        <foreignObject x="450" y="220" width="230" height="104">
+          <div xmlns="http://www.w3.org/1999/xhtml" class="top-node agent">
+            <div class="top-node-title">批改智能体</div>
+            <div class="top-io"><strong>输入</strong> 作答数据</div>
+            <div class="top-io"><strong>输出</strong> 错因聚类 / 风险标记</div>
+          </div>
+        </foreignObject>
+
+        <foreignObject x="100" y="220" width="230" height="104">
+          <div xmlns="http://www.w3.org/1999/xhtml" class="top-node person">
+            <div class="top-node-title">老师</div>
+            <div class="top-io"><strong>输入</strong> 高风险题 / 错因报告</div>
+            <div class="top-io"><strong>输出</strong> 讲评决策 / 复核规则</div>
+          </div>
+        </foreignObject>
+
+        <foreignObject x="450" y="382" width="230" height="104">
+          <div xmlns="http://www.w3.org/1999/xhtml" class="top-node agent">
+            <div class="top-node-title">补救智能体</div>
+            <div class="top-io"><strong>输入</strong> 错因 + 教师决策</div>
+            <div class="top-io"><strong>输出</strong> 分层任务 / 个别反馈</div>
+          </div>
+        </foreignObject>
+
+        <foreignObject x="470" y="150" width="190" height="34">
+          <div xmlns="http://www.w3.org/1999/xhtml" class="topology-pill">闭环反馈：越跑越准</div>
+        </foreignObject>
+
+        <path class="topology-arrow" marker-end="url(#arrow-cyan)" d="M 680 82 C 745 92, 790 128, 836 172"></path>
+        <text x="746" y="122" class="topology-label">分发任务</text>
+
+        <path class="topology-arrow" marker-end="url(#arrow-cyan)" d="M 820 224 C 760 234, 720 244, 680 266"></path>
+        <text x="720" y="230" class="topology-label">提交作答</text>
+
+        <path class="topology-arrow" marker-end="url(#arrow-cyan)" d="M 450 272 C 405 272, 365 272, 330 272"></path>
+        <text x="352" y="258" class="topology-label">风险题 / 错因</text>
+
+        <path class="topology-arrow" marker-end="url(#arrow-cyan)" d="M 330 306 C 386 348, 418 382, 450 420"></path>
+        <text x="332" y="356" class="topology-label">讲评决策</text>
+
+        <path class="topology-arrow" marker-end="url(#arrow-cyan)" d="M 565 324 C 565 342, 565 360, 565 382"></path>
+        <text x="585" y="356" class="topology-label">错因画像</text>
+
+        <path class="topology-arrow" marker-end="url(#arrow-cyan)" d="M 680 432 C 766 404, 828 340, 874 274"></path>
+        <text x="768" y="384" class="topology-label">分层补救</text>
+
+        <path class="topology-feedback" marker-end="url(#arrow-green)" d="M 930 170 C 970 54, 764 10, 680 70"></path>
+        <text x="790" y="48" class="topology-loop-label">学习结果回流，下一轮自动优化</text>
+
+        <path class="topology-feedback" marker-end="url(#arrow-green)" d="M 565 486 C 536 515, 490 516, 440 490 C 376 456, 292 398, 236 324"></path>
+        <text x="308" y="502" class="topology-loop-label">治理规则沉淀：老师复核越少，智能体判断越准</text>
+      </svg>
+    </div>
+
+    <div class="value-row">
+      <div class="value-card">
+        <strong>解放老师时间</strong>
+        <span>从全量批改和全量复核，转向关键判断、讲评设计和个别支持。</span>
+      </div>
+      <div class="value-card">
+        <strong>解放学生时间</strong>
+        <span>少做已经掌握的重复题，多做正好卡在错因上的强化练习。</span>
+      </div>
+      <div class="value-card">
+        <strong>提升学习效率</strong>
+        <span>错因被持续追踪，任务被持续优化，学习从一次性讲评变成可进化回路。</span>
+      </div>
     </div>
   </div>
 
   <!-- ============ SLIDE 09 通用AI补短板 ============ -->
-  <div class="slide" id="s9">
+  <div class="slide" id="s10">
     <div class="corner-tl"></div>
     <div class="corner-br"></div>
-    <div class="slide-num">09 / 13</div>
+    <div class="slide-num">10 / 14</div>
     <div class="section-label">工具策略</div>
 
     <h2 class="title-lg" style="margin-bottom: 28px; text-align:center;">不是换工具，是知道<span style="color:var(--cyan)">什么时候用哪个</span></h2>
@@ -1030,39 +1554,39 @@
   </div>
 
   <!-- ============ SLIDE 10 校长视角 ============ -->
-  <div class="slide" id="s10">
+  <div class="slide" id="s11">
     <div class="corner-tl"></div>
     <div class="corner-br"></div>
-    <div class="slide-num">10 / 13</div>
+    <div class="slide-num">11 / 14</div>
     <div class="section-label">给校长的建议</div>
 
-    <h2 class="title-lg" style="margin-bottom: 32px; text-align:center;">工具已经到位<br>下一步是<span style="color:var(--cyan)">让人和流程把它用深、用透</span></h2>
+    <h2 class="title-lg" style="margin-bottom: 32px; text-align:center;">工具已经到位<br>下一步是<span style="color:var(--cyan)">让人和AI智能体重新分工</span></h2>
 
     <div class="card-grid" style="grid-template-columns: 1fr; max-width: 800px; gap:14px;">
       <div class="card blue" style="padding:18px 24px;">
         <div class="card-title" style="font-size:clamp(14px,1.5vw,20px);">已有基础，可继续投入</div>
-        <div class="card-sub" style="font-size:clamp(12px,1.2vw,17px);">讯飞智批和小鹿平板已经铺开——下一步是配套的教学流程和带头人，把工具的价值充分释放</div>
+        <div class="card-sub" style="font-size:clamp(12px,1.2vw,17px);">讯飞智批和小鹿平板已经铺开——下一步不是再加工具，而是重画回路，让AI智能体在每一轮中记忆、复盘、优化</div>
       </div>
       <div class="card gold" style="padding:18px 24px;">
-        <div class="card-title" style="font-size:clamp(14px,1.5vw,20px);">培养一个"教学+AI"带头人</div>
-        <div class="card-sub" style="font-size:clamp(12px,1.2vw,17px);">不一定要新增编制，可先从教研组长、骨干教师中培养1-2位兼职的"AI教学带头人"，负责把工具能力和教学需求对接</div>
+        <div class="card-title" style="font-size:clamp(14px,1.5vw,20px);">重新定义几个关键角色</div>
+        <div class="card-sub" style="font-size:clamp(12px,1.2vw,17px);">老师负责判断与带学，AI智能体负责判题、生成、沉淀反馈与自我学习，角色清楚，链路才会闭环</div>
       </div>
       <div class="card green" style="padding:18px 24px;">
-        <div class="card-title" style="font-size:clamp(14px,1.5vw,20px);">从3位老师跑通一个最小闭环</div>
-        <div class="card-sub" style="font-size:clamp(12px,1.2vw,17px);">找最愿意试的3位老师，各带1个班级、跑1个学期，用<strong style="color:var(--white);">批改复核时间 + 单元测成绩</strong>两个口径验证效果，再向全校推广</div>
+        <div class="card-title" style="font-size:clamp(14px,1.5vw,20px);">用3个指标看见价值</div>
+        <div class="card-sub" style="font-size:clamp(12px,1.2vw,17px);">看<strong style="color:var(--white);">老师省下的复核时间、学生少做的重复练习时间、AI智能体沉淀的有效反馈量</strong>，把价值讲得更直观</div>
       </div>
     </div>
 
     <div class="quote" style="margin-top:24px; font-size:clamp(14px,1.6vw,22px); max-width:750px;">
-      推AI赋能，关键是<strong style="color:var(--cyan);">建制度、建文化、给带头人支持</strong>。
+      推AI赋能，关键是<strong style="color:var(--cyan);">重画流程、重分角色、重做反馈闭环，让AI智能体越来越聪明</strong>。
     </div>
   </div>
 
   <!-- ============ SLIDE 11 三个追问 ============ -->
-  <div class="slide" id="s11">
+  <div class="slide" id="s12">
     <div class="corner-tl"></div>
     <div class="corner-br"></div>
-    <div class="slide-num">11 / 13</div>
+    <div class="slide-num">12 / 14</div>
     <div class="section-label">AI时代的教育之问</div>
 
     <h2 class="title-lg" style="margin-bottom: 32px; text-align:center;">当AI能回答所有<span style="color:var(--gold2)">"标准答案"</span><br>老师意味着什么？</h2>
@@ -1089,10 +1613,10 @@
   </div>
 
   <!-- ============ SLIDE 12 学校与学生之问 ============ -->
-  <div class="slide" id="s12">
+  <div class="slide" id="s13">
     <div class="corner-tl"></div>
     <div class="corner-br"></div>
-    <div class="slide-num">12 / 13</div>
+    <div class="slide-num">13 / 14</div>
     <div class="section-label">AI时代的教育之问</div>
 
     <h2 class="title-lg" style="margin-bottom: 24px; text-align:center;"><span style="color:var(--cyan)">学校</span>是什么？<span style="color:var(--gold2)">学生</span>学什么？怎么学？</h2>
@@ -1136,11 +1660,11 @@
   </div>
 
   <!-- ============ SLIDE 13 结尾：今天的第一步 ============ -->
-  <div class="slide slide-cover" id="s13">
+  <div class="slide slide-cover" id="s14">
     <div class="end-glow"></div>
     <div class="corner-tl"></div>
     <div class="corner-br"></div>
-    <div class="slide-num">13 / 13</div>
+    <div class="slide-num">14 / 14</div>
 
     <div class="eyebrow" style="margin-bottom:1.5em;">从今天开始</div>
     <h1 class="title-xl" style="font-size:clamp(22px,3.5vw,50px); max-width:850px; margin-bottom:28px;">
@@ -1194,7 +1718,7 @@
 <!-- NAV -->
 <div id="nav">
   <button onclick="go(-1)">← 上一页</button>
-  <span id="page-info">1 / 13</span>
+  <span id="page-info">1 / 14</span>
   <button onclick="go(1)">下一页 →</button>
 </div>
 
@@ -1207,7 +1731,7 @@
     const next = cur + dir;
     if (next < 0 || next >= total) return;
     slides[cur].classList.remove('active');
-    slides[cur].classList.add(dir > 0 ? 'prev' : '');
+    if (dir > 0) slides[cur].classList.add('prev');
     setTimeout(() => slides[cur].classList.remove('prev'), 600);
     cur = next;
     slides[cur].classList.add('active');
@@ -1218,7 +1742,7 @@
     if (idx === cur || idx < 0 || idx >= total) return;
     const dir = idx > cur ? 1 : -1;
     slides[cur].classList.remove('active');
-    slides[cur].classList.add(dir > 0 ? 'prev' : '');
+    if (dir > 0) slides[cur].classList.add('prev');
     setTimeout(() => slides[cur].classList.remove('prev'), 600);
     cur = idx;
     slides[cur].classList.add('active');

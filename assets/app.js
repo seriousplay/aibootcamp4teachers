@@ -70,10 +70,10 @@ const stepQuizzes = {
     { q: '在 WorkBuddy 里，你想让它"帮你把这段教案排成表格"，最自然的说法是？', opts: ['请帮我把上面这段教案内容整理成一个表格', '表格', '你自己看着办', '关闭对话'], answer: 0 },
     { q: '关于"智能体"和"大模型"的关系，哪种理解最准确？', opts: ['它们是完全一样的东西', '大模型是"脑"（负责思考和生成），智能体是"手"（调用脑和各种工具去完成任务）', '智能体比大模型笨', '大模型只能用在智能体里，不能单独用'], answer: 1 },
   ],
-  3: [ // 认识能力：五种能力、技能触发语、拔高
-    { q: '技能需要"明确的触发词"才会被调用。要把教案变成PPT文件，下列哪种说法能成功触发PPT技能？', opts: ['"帮我看看教案"（没有触发词，AI只会给文字建议，不会生成文件）', '"请把它做成PPT"（"做成PPT"是明确的触发词，AI会调用技能生成.pptx文件）', '"这个教案不错"（只是评价，不触发任何技能）', '"教案"（只提到关键词，指令不完整）'], answer: 1 },
-    { q: 'WorkBuddy的五种能力中，哪一种最能帮你"把想法变成可直接带进课堂的成品"？', opts: ['对话即任务（让AI听懂你要什么）', '文件即知识库（让AI基于你的教材回答）', '技能即工具箱（一句话生成可下载的PPT/Word/Excel文件）', '看结果（查看AI的回复）'], answer: 2 },
-    { q: '同样是"做一份课件"，为什么用技能生成PPT，比让AI直接写一段文字描述更好？', opts: ['文字描述更专业', '技能生成的是可下载、可编辑、能直接上课用的真实文件，文字描述还得自己动手排版', '两者没区别', '文字描述更快'], answer: 1 },
+  3: [ // 认识能力：通用智能体工作台、技能触发语、教师把关
+    { q: '腾讯官方对 WorkBuddy 的定位，更接近下面哪一种？', opts: ['只会聊天的问答工具', '只给老师生成教学PPT的工具', '全场景桌面AI智能体/办公工作台，能理解任务、拆解步骤并交付结果', '只能搜索网页的浏览器插件'], answer: 2 },
+    { q: '把教案做成PPT文件时，下列哪种说法最容易触发技能？', opts: ['"帮我看看教案"', '"请把它做成PPT"', '"这个教案不错"', '"教案"'], answer: 1 },
+    { q: '老师使用 WorkBuddy 最重要的边界是什么？', opts: ['AI生成后可以直接发给学生，不用检查', '它能帮忙执行资料处理、分析和成品生成，但教师仍要判断内容是否准确、适合本班', '只要用了AI就不用考虑隐私', 'AI做得越多，教师越不需要参与'], answer: 1 },
   ],
   4: [ // 观看演示：完整流程、产出、核心理念
     { q: '讲师演示的完整流程，最终产出的核心是什么？', opts: ['一段聊天文字', '一份可下载的教学成品文件', '一份考试题', '一段视频'], answer: 1 },
@@ -91,9 +91,9 @@ const stepQuizzes = {
     { q: 'AI反复改了3版你还是不满意，这时最高效的策略是？', opts: ['一直让它改，改到天荒地老', '停下来，反思是不是自己的"要求/标准"没说清——把评判标准量化告诉AI，往往一次就改对', '怪AI太笨', '放弃AI改回手写'], answer: 1 },
   ],
   7: [ // 设计专属技能：把经验沉淀成可复用技能
-    { q: '"专属技能"是什么意思？', opts: ['平台官方才有的，老师不能自己做', '把你反复在用的专业经验（如教案审核标准、分层出题套路）写成一套指令模板，让AI每次自动按你的标准做事', '一种付费功能', '只有程序员才能做的功能'], answer: 1 },
-    { q: '一位数学老师总要让AI按"基础5题+发展4题+挑战3题"出分层练习，最省事的做法是？', opts: ['每次都重新打字描述一遍要求', '把这个出题套路设计成一个"分层出题"专属技能，以后一句话就能触发，AI自动按这个标准出题', '每次都复制粘贴旧对话', '干脆不让AI出题了'], answer: 1 },
-    { q: '设计好一个专属技能后，除了自己用，还能带来什么额外价值？', opts: ['没什么额外价值', '可以分享给同组、同校的老师，让团队都用同一套高质量标准——把个人经验变成团队教研资产', '只能自己偷偷用', '必须付费才能分享'], answer: 1 },
+    { q: '一个可复用教学 Skill 至少应该包含哪些部分？', opts: ['只有一句“帮我写教案”', '触发方式、输入模板、执行规则、输出模板和质量检查', '越长越好，不需要结构', '只要能生成PPT就够了'], answer: 1 },
+    { q: '设计“新课标教案+分层任务单”Skill 时，缺少哪几项信息应该先追问？', opts: ['课题、年级学科、学情、课时', '教师姓名和办公室', 'PPT颜色和字体', '今天星期几'], answer: 0 },
+    { q: '第一次测试 Skill 的结果不理想，最应该怎么做？', opts: ['只改这一份教案，不管Skill', '继续优化Skill说明书，让它以后稳定按新标准工作', '放弃Skill', '让AI随便发挥'], answer: 1 },
   ],
   8: [ // 打造教研智能体：vibe coding、校本知识库、进阶认知
     { q: '"vibe coding"是什么意思？', opts: ['一种编程语言', '用自然语言（说话的方式）指挥AI写代码、搭工具，不用自己懂编程语法', '一种打字速度测试', '只能程序员用的功能'], answer: 1 },
@@ -111,7 +111,7 @@ const levelMeta = {
   K5: { title: '什么是龙虾OpenClaw助手', type: 'knowledge', phase: '认知关', subtitle: '理解你的数字分身：有灵魂、有记忆、持续进化' },
   P1: { title: '提示词入门', type: 'practice', time: '8-18分钟', phase: '上半场', sourceId: 'act1' },
   P2: { title: '首次上手', type: 'practice', time: '18-28分钟', phase: '上半场', sourceId: 'act2' },
-  P3: { title: '认识WorkBuddy的五种能力', type: 'practice', time: '28-40分钟', phase: '上半场', sourceId: 'act3' },
+  P3: { title: '认识WorkBuddy这个通用智能体工作台', type: 'practice', time: '28-40分钟', phase: '上半场', sourceId: 'act3' },
   P4: { title: '观看完整演示', type: 'practice', time: '40-52分钟', phase: '上半场', sourceId: 'act4' },
   P5: { title: '生成你的第一版', type: 'practice', time: '0-10分钟', phase: '下半场', sourceId: 'act5' },
   P6: { title: '优化你的第一版', type: 'practice', time: '10-25分钟', phase: '下半场', sourceId: 'act6' },
@@ -196,26 +196,26 @@ const knowledgeQuizzes = {
 
 // ===== 学习内容数据（从原student.html迁移） =====
 const taskData = {
-  A: { name:"教案+分层任务单", desc:"生成一份完整教案和三层分层任务单", color:"badge-blue", prompts:[
+  A: { name:"教案+分层任务单", desc:"生成一份完整教案和三层分层任务单", deliverable:"一份完整教案文档 + 一张三层任务单", color:"badge-blue", prompts:[
     { label:"教案生成", code:`你是一名有经验的中小学教师和教研员。请基于以下信息设计一课时教案：\n\n- 年级与学科：[填写]\n- 教材版本与课题：[填写]\n- 课标目标/核心素养：[填写]\n- 本班学情：[填写]\n- 已有知识基础：[填写]\n- 常见错误或难点：[填写]\n- 课时长度：[填写]\n- 课堂条件：[填写]\n\n请输出：学习目标、重点难点、导入、问题串、学生活动、分层任务（基础/发展/挑战）、板书设计、随堂评价、课后作业。\n要求：贴合学生年龄，不空泛，每个环节写明教师做什么、学生做什么、如何评价。` },
     { label:"分层任务单", code:`请围绕"[知识点/课文/单元主题]"设计三层学习任务：\n\n基础层：帮助学困生掌握必要知识\n发展层：帮助大多数学生完成迁移应用\n挑战层：帮助学有余力学生进行综合表达或探究\n\n每层包含：目标、材料、任务、提示、评价标准和预计用时。\n要求：不要降低基础层的尊严感，语言要鼓励。` },
     { label:"成品化：教案→Word", code:`请把以上教案整理成一份格式规范的Word文档，含标题、学习目标、教学流程、分层任务、评价量规等部分` }
   ]},
-  B: { name:"错题诊断+分层练习", desc:"基于错题统计生成错因分析和分层补救练习", color:"badge-green", prompts:[
+  B: { name:"错题诊断+分层练习", desc:"基于错题统计生成错因分析和分层补救练习", deliverable:"一张错题分析表 + 一套分层补救练习", color:"badge-green", prompts:[
     { label:"错题诊断", code:`你是一名数学学情分析助手。以下是学生的一次练习答题情况：\n\n- 知识点：[填写，如"异分母分数加减法"]\n- 题目数量：5道\n- 错误统计：[填写，如"第3题错误率70%，主要错误是直接分子加分母；第5题错误率45%，主要错误是通分错误"]\n\n请输出：\n1. 共性错误排序\n2. 每个错误的错因假设\n3. 3分钟讲解稿（可直接对全班讲）\n4. 2道例题（含详细解答）\n5. 3道变式题（由易到难）\n6. 学困/中等/优生的不同补救建议\n\n要求：不确定的地方标明"不确定"，不要臆断。优先给出教师可执行的建议。` },
     { label:"分层练习生成", code:`请围绕"[知识点]"设计三层练习题：\n\n基础层（学困生）：5道基础题，覆盖核心知识点\n发展层（中等生）：4道应用题，需要迁移理解\n挑战层（优生）：3道综合题，需要多步推理或创新解法\n\n每道题附答案和解析。` },
     { label:"成品化：错题→Excel", code:`请把错题分析结果做成一份Excel表格，包含题号、知识点、错误率、错因、补救建议、变式题等列` }
   ]},
-  C: { name:"PBL项目设计", desc:"设计一套完整的项目式学习方案", color:"badge-purple", prompts:[
+  C: { name:"PBL项目设计", desc:"设计一套完整的项目式学习方案", deliverable:"一份可分享的PBL项目方案", color:"badge-purple", prompts:[
     { label:"PBL方案设计", code:`你是一名项目式学习设计专家。请基于以下主题，为[年级]课堂设计一套PBL方案：\n\n- 主题：[填写]\n- 学科：[填写]\n- 课时：[填写，如4-6课时]\n\n请输出：\n1. 驱动问题\n2. 项目目标\n3. 任务链（分课时）\n4. 学生分工\n5. 资料支持（AI可帮助检索的方向）\n6. 分层支架\n7. 成果物\n8. 评价量规\n\n要求：任务要真实，过程要可操作，适合在一线课堂落地。` },
     { label:"成品化：PBL→PDF", code:`请把PBL方案整理成一份完整的PDF文档，含项目概览、驱动问题、任务链、评价量规、附录` }
   ]},
-  D: { name:"教学PPT生成", desc:"基于教案内容生成可用的教学PPT", color:"badge-orange", prompts:[
+  D: { name:"教学PPT生成", desc:"基于教案内容生成可用的教学PPT", deliverable:"一份可编辑、可上课使用的PPT", color:"badge-orange", prompts:[
     { label:"教案生成", code:`你是一名有经验的中小学教师和教研员。请基于以下信息设计一课时教案：\n\n- 年级与学科：[填写]\n- 教材版本与课题：[填写]\n- 课标目标/核心素养：[填写]\n- 本班学情：[填写]\n- 课时长度：[填写]\n\n请输出：学习目标、重点难点、导入、问题串、学生活动、分层任务、板书设计、随堂评价、课后作业。` },
     { label:"成品化：教案→PPT", code:`请基于以上教案内容，做成一份15页的教学PPT，要有标题页、目标页、每个环节一页、总结页` },
     { label:"PPT修改指令", code:`请修改PPT：\n1. 每页文字太多，请精简到每页不超过50字\n2. 增加一页板书设计\n3. 最后一页增加课后作业\n4. 标题页加上我的名字：[你的名字]` }
   ]},
-  E: { name:"家校沟通+学情总结", desc:"生成家长信和学情分析报告", color:"badge-pink", prompts:[
+  E: { name:"家校沟通+学情总结", desc:"生成家长信和学情分析报告", deliverable:"一封家长沟通文案 + 一份学情报告", color:"badge-pink", prompts:[
     { label:"家长信生成", code:`你是一名有温度的班主任。请根据以下信息写一段[家长信/微信群消息]：\n\n- 事件/背景：[填写]\n- 学生表现：[填写，如"小明本周在项目中从不敢发言到主动汇报"]\n- 教师观察：[填写]\n\n要求：事实型、鼓励型、有下一步行动建议。\n- 家长信不超过300字\n- 微群消息不超过100字\n- 不给学生贴负面标签` },
     { label:"学情总结", code:`你是一名学情分析助手。请根据以下信息生成一份学情报告：\n\n- 班级：[填写]\n- 时间范围：[填写，如"本学期前8周"]\n- 整体表现：[填写，如"班级整体数学成绩稳步提升，但应用题失分严重"]\n- 重点关注学生：[填写，如"小明基础薄弱但进步明显，小红粗心问题持续"]\n\n请输出：班级整体情况、薄弱点排名、分层建议、下一步行动计划。` },
     { label:"成品化：家长信→Word", code:`请把家长信整理成一份Word文档，格式适合打印或微信群发送` },
@@ -229,16 +229,16 @@ const allTemplates = [
   { id:3, name:"错因诊断与补救", icon:"🔍", scene:"错题分析", code:`以下是学生在一次练习中的错误统计和典型答案：\n\n[粘贴错题统计和典型答案]\n\n请帮我判断可能的知识漏洞和思维误区，并输出：\n1. 班级共性薄弱点排序\n2. 每个薄弱点的错因假设\n3. 3分钟讲解稿\n4. 2道例题和3道变式题\n5. 学困/中等/优生的不同补救建议\n\n注意：如果数据不足，请标出"不确定"，不要臆断。` },
   { id:4, name:"PBL项目设计", icon:"🎯", scene:"项目式学习", code:`你是一名项目式学习设计专家。请基于以下主题，为[年级]课堂设计一套PBL方案：\n\n- 主题：[填写]\n- 学科：[填写]\n- 课时：[填写，如4-6课时]\n\n请输出：\n1. 驱动问题\n2. 项目目标\n3. 任务链（分课时）\n4. 学生分工\n5. 资料支持\n6. 分层支架\n7. 成果物\n8. 评价量规\n\n要求：任务要真实，过程要可操作，适合在一线课堂落地。` },
   { id:5, name:"家校沟通文案", icon:"💬", scene:"家校沟通", code:`你是一名有温度的班主任。请根据以下信息写一段[家长信/微信群消息]：\n\n- 事件/背景：[填写]\n- 学生表现：[填写，如"小明本周在项目中从不敢发言到主动汇报"]\n- 教师观察：[填写]\n\n要求：事实型、鼓励型、有下一步行动建议。\n- 家长信不超过300字\n- 微群消息不超过100字\n- 不给学生贴负面标签` },
-  { id:6, name:"技能成品化指令库", icon:"⚡", scene:"技能使用", isSkill:true },
+  { id:6, name:"可开发Skills清单", icon:"⚡", scene:"技能沉淀", isSkill:true },
   { id:7, name:"学生AI使用公约", icon:"🤝", scene:"学生AI素养", code:`请帮我生成一份适合[年级]学生的AI使用公约，要求：\n\n1. 向AI提问前，先写出自己的想法\n2. 让AI给提示，不让AI直接给最终答案\n3. 让AI解释为什么，而不是只要结果\n4. 把AI回答和课本、老师讲解、同伴讨论进行对照\n5. 提交作业时标明哪些地方使用过AI帮助\n\n请用学生能理解的语言，设计成一页可打印的公约卡片。` }
 ];
 
 const skillDetails = [
-  { icon:"📊", name:"PPT生成", format:".pptx", scenes:"教学课件、公开课PPT、班会PPT", code:`请把以上[教案/教学内容]做成一份教学PPT，要求：\n\n- 页数：15页左右\n- 结构：标题页 + 学习目标页 + 每个教学环节1页 + 总结页\n- 每页：一个核心要点，文字简洁，适合大屏展示\n- 风格：[简洁大方 / 活泼有趣 / 专业正式]\n- 备注：每页底部附上教师讲解要点` },
-  { icon:"📈", name:"Excel生成", format:".xlsx", scenes:"错题分析表、成绩统计、分层练习清单", code:`请把以上[错题分析/成绩数据/分层练习]做成一份Excel表格，要求：\n\n- 列设置：[题号 / 知识点 / 错误率 / 错因 / 补救建议 / 变式题]\n- 格式：表头加粗，数据列居中对齐\n- 功能：方便按知识点筛选、按错误率排序\n- 底部：加一行"班级整体薄弱点TOP3"汇总` },
-  { icon:"📄", name:"Word文档", format:".docx", scenes:"教案文档、家长信、教研报告", code:`请把以上[教案/家长信/教研报告]整理成一份Word文档，要求：\n\n- 格式规范：标题、正文、小标题层级清晰\n- 适合[打印分发 / 微信群发送 / 存档备案]\n- 字体：正文宋体12号，标题黑体加粗\n- 页边距：标准` },
-  { icon:"📑", name:"PDF生成", format:".pdf", scenes:"学情报告、PBL方案书、可打印资料", code:`请把以上[学情报告/PBL方案/教学总结]导出为PDF文档，要求：\n\n- 格式正式，适合打印或正式提交\n- 含封面（标题、日期、作者）\n- 目录清晰\n- 适合A4纸打印` },
-  { icon:"🎨", name:"图片生成", format:".png/.jpg", scenes:"课件配图、PBL情境图、对话场景图", code:`请生成一张教学配图，内容要求：\n\n- 主题：[如"秋天校园里的银杏树" / "古诗意境" / "英语对话场景"]\n- 风格：[水彩画 / 卡通插画 / 写实摄影 / 简笔画]\n- 用途：[课件配图 / PBL情境导入 / 学生作业素材]\n- 适合[小学/初中]学生` }
+  { icon:"📝", name:"新课标教案+分层任务单", priority:"A", scenes:"备课、分层教学、公开课准备", input:"年级、课题、课标目标、班情、教材页", output:"教案、问题串、三层任务单、评价量规" },
+  { icon:"🔍", name:"错题诊断+补救练习", priority:"A", scenes:"知识漏洞定位、薄弱点讲解、变式训练", input:"错题统计、典型答案、知识点标签", output:"错因排序、讲解稿、例题、分层练习" },
+  { icon:"🎯", name:"PBL项目设计器", priority:"A/B", scenes:"传统文化、地方素材、跨学科项目学习", input:"主题、学科、课时、地方资源、成果要求", output:"驱动问题、任务链、资料包、分工、评价量规" },
+  { icon:"💬", name:"家校沟通+学情总结", priority:"A", scenes:"家长信、阶段性学情报告、班主任沟通", input:"学生表现、数据、教师观察、沟通对象", output:"事实型家长信、鼓励建议、班级学情报告" },
+  { icon:"💡", name:"课堂问题串+互动题", priority:"B", scenes:"课堂导入、追问、随堂测和节奏调整", input:"教学目标、前测结果、重难点、课堂条件", output:"递进问题串、互动题、追问、板书节奏" }
 ];
 
 // ===== 全局状态 =====
@@ -340,9 +340,6 @@ const APP = (function() {
       const sec = document.getElementById('act' + i);
       if (sec) sec.style.display = 'none';
     }
-    // 隐藏 welcome 区的欢迎说明内容（保留 #myTaskBanner 和 #choose）
-    const welcomeIntro = document.getElementById('welcomeIntro');
-    if (welcomeIntro) welcomeIntro.style.display = 'none';
     // 隐藏上下半场分隔线与下半场开始横幅
     document.querySelectorAll('.phase-divider').forEach(el => el.style.display = 'none');
     const secondHalfBanner = document.getElementById('secondHalfBanner');
@@ -696,13 +693,13 @@ const APP = (function() {
 
   function updateProgressDisplay() {
     const done = (currentProgress.steps || []).length;
-    const total = 8;
+    const total = GAMIFY.ALL_LEVELS.length;
     const fill = document.getElementById('progressFill');
     const text = document.getElementById('progressText');
     if (fill) fill.style.width = (done / total * 100) + '%';
     if (text) {
       const level = GAMIFY.getLevel(currentProgress.points || 0);
-      text.textContent = `Lv.${level.lv} · ${currentProgress.points || 0}分 · ${done}/${total}步完成`;
+      text.textContent = `Lv.${level.lv} · ${currentProgress.points || 0}分 · ${done}/${total}关完成`;
     }
     // 单步聚焦模式：同步更新地图计数（含等级/积分信息）
     const counter = document.getElementById('mapCounter');
@@ -789,7 +786,7 @@ const APP = (function() {
     banner.classList.add('show');
     const data = taskData[type];
     document.getElementById('bannerTitle').textContent = '我的任务：' + data.name;
-    document.getElementById('bannerDesc').textContent = data.desc;
+    document.getElementById('bannerDesc').textContent = `目标产出：${data.deliverable || data.desc}`;
   }
 
   function renderTaskPrompts(type) {
@@ -802,8 +799,12 @@ const APP = (function() {
     container.innerHTML = `
       <div class="card card-purple">
         <div class="card-header"><div class="card-title"><span class="section-badge ${data.color}">任务${type}</span> ${data.name}</div></div>
-        <p style="font-size:14px;color:var(--gray-600);margin-bottom:16px;">${data.desc}</p>
-        <div class="info-box"><strong>使用方法：</strong>逐个复制下面的提示词到WorkBuddy对话框，替换方括号中的内容后发送。按顺序使用效果最佳。</div>
+        <p style="font-size:14px;color:var(--gray-600);margin-bottom:12px;">${data.desc}</p>
+        <div class="task-outcome">
+          <strong>完成标准</strong>
+          <span>${data.deliverable || data.desc}；内容已结合你的真实课题，并经过至少一次修改。</span>
+        </div>
+        <div class="info-box"><strong>使用方法：</strong>按顺序复制下面的提示词到WorkBuddy，先替换方括号内容，再发送。每次拿到结果后先检查，再进入下一条。</div>
         ${data.prompts.map((p, i) => `
           <div style="margin-top:16px;">
             <h4 style="font-weight:700;font-size:15px;margin-bottom:8px;">${i+1}. ${p.label}</h4>
@@ -822,7 +823,7 @@ const APP = (function() {
     if (!container) return;
     container.innerHTML = allTemplates.map(t => {
       if (t.isSkill) {
-        return `<div class="card card-accent"><div class="card-header"><div class="card-title"><span style="font-size:24px;">${t.icon}</span> 模板${t.id}：${t.name}</div><span class="section-badge badge-orange">${t.scene}</span></div><p style="font-size:14px;color:var(--gray-600);margin-bottom:12px;">5种技能的详细指令模板</p><p style="font-size:14px;color:var(--primary-dark);font-weight:600;">请查看下方「技能使用指南」获取5种技能的详细指令。</p><button class="copy-btn" style="margin-top:12px;" onclick="goSection('skillguide')">前往技能指南</button></div>`;
+        return `<div class="card card-accent"><div class="card-header"><div class="card-title"><span style="font-size:24px;">${t.icon}</span> 模板${t.id}：${t.name}</div><span class="section-badge badge-orange">${t.scene}</span></div><p style="font-size:14px;color:var(--gray-600);margin-bottom:12px;">从高频教学需求中挑选适合沉淀的Skill。</p><p style="font-size:14px;color:var(--primary-dark);font-weight:600;">请查看「技能使用指南」和第七步案例，学习如何把需求设计成可复用工作流。</p><button class="copy-btn" style="margin-top:12px;" onclick="goSection('skillguide')">前往技能指南</button></div>`;
       }
       return `<div class="card"><div class="card-header"><div class="card-title"><span style="font-size:24px;">${t.icon}</span> 模板${t.id}：${t.name}</div><span class="section-badge badge-blue">${t.scene}</span></div><div class="prompt-block"><div class="prompt-header"><span class="prompt-label">提示词 · 点击复制</span><button class="copy-btn" onclick="APP.copyPrompt(this)">复制</button></div><div class="prompt-code">${escapeHtml(t.code)}</div></div></div>`;
     }).join('');
@@ -831,7 +832,7 @@ const APP = (function() {
   function renderSkillDetails() {
     const container = document.getElementById('skillDetailsContainer');
     if (!container) return;
-    container.innerHTML = skillDetails.map(s => `<div class="card"><div class="card-header"><div class="card-title"><span style="font-size:24px;">${s.icon}</span> ${s.name}</div><span class="section-badge badge-blue">${s.format}</span></div><p style="font-size:14px;color:var(--gray-500);margin-bottom:12px;">适用场景：${s.scenes}</p><div class="prompt-block"><div class="prompt-header"><span class="prompt-label">${s.name}指令 · 点击复制</span><button class="copy-btn" onclick="APP.copyPrompt(this)">复制</button></div><div class="prompt-code">${escapeHtml(s.code)}</div></div></div>`).join('');
+    container.innerHTML = skillDetails.map(s => `<div class="card"><div class="card-header"><div class="card-title"><span style="font-size:24px;">${s.icon}</span> ${s.name}</div><span class="section-badge badge-blue">优先级 ${s.priority}</span></div><p style="font-size:14px;color:var(--gray-500);margin-bottom:12px;">适用场景：${s.scenes}</p><div class="table-wrap"><table><tbody><tr><td><strong>老师需要提供</strong></td><td>${s.input}</td></tr><tr><td><strong>建议输出</strong></td><td>${s.output}</td></tr></tbody></table></div></div>`).join('');
   }
 
   // ===== 教师需求图谱 =====
@@ -903,13 +904,14 @@ const APP = (function() {
         const level = GAMIFY.getLevel(item.points || 0);
         const isMe = currentUser && item.userId == currentUser.id;
         const initial = (item.name || '?')[0];
+        const stepCount = Array.isArray(item.steps) ? item.steps.length : (item.steps || 0);
         return `<div class="leaderboard-row ${isMe ? 'me' : ''}">
           <div class="lb-rank ${i < 3 ? rankClass[i] : ''}">${i + 1}</div>
           <div class="lb-user">
             <div class="lb-avatar lvl-${level.lv}">${initial}</div>
             <div>
               <div class="lb-name">${item.name}${isMe ? ' (我)' : ''}</div>
-              <div class="lb-steps">${item.steps || 0}/8步</div>
+              <div class="lb-steps">${stepCount}/13关</div>
             </div>
           </div>
           <span class="lb-level lvl-${level.lv}">Lv.${level.lv}</span>
@@ -1050,7 +1052,7 @@ const APP = (function() {
       name: 'Agent工具', icon: '🤖', desc: 'AI智能体平台，可创建专门服务教学任务的AI助手，串联工作流',
       items: [
         { name: '扣子 Coze', icon: '🧩', tag: '字节', desc: '字节推出的AI Bot开发平台，可创建Bot、知识库、工作流和应用页面，适合搭建教学工具', url: 'https://www.coze.cn/' },
-        { name: 'WorkBuddy', icon: '⚡', tag: '本平台', desc: '本次培训使用的AI Agent平台，支持对话即任务、文件即知识库、技能即成品，无需搭建直接使用', url: 'https://workbuddy.com' },
+        { name: 'WorkBuddy', icon: '⚡', tag: '本平台', desc: '腾讯云推出的全场景桌面AI智能体，可处理资料、拆解任务、调用技能并交付可检查的工作成果', url: 'https://workbuddy.com' },
         { name: 'Qoder', icon: '🔧', tag: '阿里', desc: '阿里推出的AI编程助手，支持代码生成、调试和重构，适合信息技术教师使用', url: 'https://qoder.com/' },
         { name: 'Trae', icon: '🎯', tag: '字节', desc: '字节推出的AI IDE，集成多种AI能力，支持智能编程和项目协作', url: 'https://www.trae.ai/' },
         { name: 'Claude', icon: '🎭', tag: 'Anthropic', desc: 'Anthropic的AI助手，擅长长文本分析和写作，适合教案撰写、作文诊断和学情分析', url: 'https://claude.ai/' },
@@ -1058,10 +1060,10 @@ const APP = (function() {
       ]
     },
     skills: {
-      name: '技能市场', icon: '🛠️', desc: 'AI技能和插件市场，扩展AI能力，一键生成PPT/Excel/图片等成品',
+      name: '技能市场', icon: '🛠️', desc: 'AI技能和插件市场，扩展AI能力，把高频教学需求沉淀成可复用工作流',
       items: [
         { name: '扣子插件商店', icon: '🏪', tag: '扣子', desc: '扣子平台的插件市场，提供搜索、图片生成、代码运行等丰富插件，可接入Bot使用', url: 'https://www.coze.cn/store/plugin' },
-        { name: 'WorkBuddy技能', icon: '⚙️', tag: '本平台', desc: 'WorkBuddy内置技能系统，支持PPT/Excel/Word/PDF/图片生成，一句话触发成品输出', url: 'https://workbuddy.com' },
+        { name: 'WorkBuddy技能', icon: '⚙️', tag: '本平台', desc: 'WorkBuddy支持通过Skills沉淀重复任务，适合把备课、错题诊断、学情总结等流程标准化', url: 'https://workbuddy.com' },
         { name: '飞书多维表格', icon: '📊', tag: '字节', desc: '低代码数据协作工具，配合AI可实现成绩管理、错题分析、学情追踪的自动化', url: 'https://www.feishu.cn/product/base' },
         { name: 'Kimi+助手', icon: '🌙', tag: '月之暗面', desc: 'Kimi推出的AI助手集合，提供PPT生成、搜索增强、学术检索等专用智能体', url: 'https://kimi.moonshot.cn/' },
       ]

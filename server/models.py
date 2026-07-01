@@ -5,11 +5,23 @@ import os
 from datetime import date
 
 DB_PATH = os.path.join(os.path.dirname(__file__), 'data', 'microlearn.db')
+LEVEL_ORDER = ['K1', 'K2', 'K3', 'K4', 'K5', 'P1', 'P2', 'P3', 'P4', 'P5', 'P6', 'P7', 'P8']
+LEVEL_COUNT = len(LEVEL_ORDER)
 
 def get_conn():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     return conn
+
+def normalize_levels(raw):
+    result = []
+    for item in raw or []:
+        s = str(item).strip()
+        if s.isdigit() and 1 <= int(s) <= 8:
+            s = 'P' + s
+        if s in LEVEL_ORDER and s not in result:
+            result.append(s)
+    return result
 
 # ===== 用户 =====
 def create_user(phone, password_hash, name):
@@ -169,7 +181,7 @@ def get_leaderboard(limit=20):
     conn.close()
     result = []
     for r in rows:
-        steps = json.loads(r['steps_json']) if r['steps_json'] else []
+        steps = normalize_levels(json.loads(r['steps_json']) if r['steps_json'] else [])
         result.append({
             'userId': r['userId'],
             'name': r['name'],
@@ -180,7 +192,7 @@ def get_leaderboard(limit=20):
 
 # ===== 讲师仪表盘 =====
 def get_dashboard_stats():
-    """讲师端实时数据：班级整体统计 + 每步完成率 + 学员明细"""
+    """讲师端实时数据：班级整体统计 + 每关完成率 + 学员明细"""
     conn = get_conn()
     c = conn.cursor()
     c.execute('''
@@ -197,21 +209,22 @@ def get_dashboard_stats():
     if total_users == 0:
         return {
             'totalUsers': 0, 'totalStepsCompleted': 0,
-            'avgProgress': 0, 'stepCompletion': [0]*8,
+            'avgProgress': 0, 'stepCompletion': [0]*LEVEL_COUNT,
+            'stepCompletionRate': [0]*LEVEL_COUNT,
             'learners': [], 'taskDistribution': {},
         }
 
-    # 每步完成人数统计
-    step_counts = [0] * 8
+    # 每关完成人数统计
+    step_counts = [0] * LEVEL_COUNT
     task_dist = {}
     learners = []
     sum_steps = 0
 
     for r in rows:
-        steps = json.loads(r['steps_json']) if r['steps_json'] else []
+        steps = normalize_levels(json.loads(r['steps_json']) if r['steps_json'] else [])
         for s in steps:
-            if 1 <= s <= 8:
-                step_counts[s-1] += 1
+            if s in LEVEL_ORDER:
+                step_counts[LEVEL_ORDER.index(s)] += 1
         sum_steps += len(steps)
         task = r['task_selected']
         if task:
@@ -223,18 +236,17 @@ def get_dashboard_stats():
             'stepsCompleted': len(steps),
             'steps': steps,
             'task': task,
-            'progress': round(len(steps) / 8 * 100),
+            'progress': round(len(steps) / LEVEL_COUNT * 100),
             'lastActive': r['updated_at'] or '',
         })
 
     return {
         'totalUsers': total_users,
         'totalStepsCompleted': sum_steps,
-        'avgProgress': round(sum_steps / (total_users * 8) * 100),
-        'stepCompletion': step_counts,          # 每步完成人数 [n,n,...]
+        'avgProgress': round(sum_steps / (total_users * LEVEL_COUNT) * 100),
+        'stepCompletion': step_counts,          # 每关完成人数 [n,n,...]
         'stepCompletionRate': [round(c / total_users * 100) for c in step_counts],
         'taskDistribution': task_dist,
         'learners': learners,
         'generatedAt': __import__('datetime').datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
     }
-

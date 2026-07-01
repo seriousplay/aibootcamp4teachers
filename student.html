@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI赋能教学实操培训 · 学员微学习平台</title>
-<link rel="stylesheet" href="./assets/style.css">
+<link rel="stylesheet" href="./assets/style.css?v=20260628b">
 </head>
 <body>
 
@@ -104,6 +104,9 @@
   <div class="nav-item" data-target="safety" onclick="goSection('safety')">
     <div class="nav-check"></div><span>安全使用须知</span>
   </div>
+  <div class="nav-item" data-target="help" onclick="goSection('help')">
+    <div class="nav-check"></div><span>卡住了怎么办</span>
+  </div>
   <div class="nav-item" data-target="learnhub" onclick="goSection('learnhub')">
     <div class="nav-check"></div><span>🌱 拓展学习</span>
   </div>
@@ -118,77 +121,36 @@
 
 <!-- 欢迎 -->
 <div class="section" id="welcome">
-  <div class="welcome-intro" id="welcomeIntro">
-    <h1 class="section-title">欢迎来到AI赋能教学实操培训</h1>
-    <p class="section-subtitle">两小时，你将亲手用AI做出一份能下周就能用的教学成品</p>
-
-    <div class="card card-highlight">
-      <h3 style="font-size:18px;font-weight:700;margin-bottom:16px;">今天你会完成什么</h3>
-      <div class="step-list">
-        <li><strong>学会写提示词</strong>——不是和AI聊天，而是给AI下教学任务</li>
-        <li><strong>亲手操作WorkBuddy</strong>——上传教材、生成教案、做出分层任务单</li>
-        <li><strong>打造教研智能体</strong>——用vibe coding串联知识库和技能，建一个持续进化的校本教研助手</li>
-        <li><strong>带走一份教学成品</strong>——下周课堂就能用</li>
-      </div>
-    </div>
-
-    <div class="card card-success">
-      <h3 style="font-size:18px;font-weight:700;margin-bottom:12px;">游戏化学习激励</h3>
-      <p style="font-size:14px;color:var(--gray-600);margin-bottom:12px;">完成每个步骤获得积分，升级头衔，解锁徽章，参与排行榜！</p>
-      <div style="display:flex;gap:12px;flex-wrap:wrap;">
-        <span class="section-badge badge-orange">🎯 完成步骤 +10分</span>
-        <span class="section-badge badge-purple">⚡ 上半场完成 +30分</span>
-        <span class="section-badge badge-green">🏁 下半场完成 +50分</span>
-        <span class="section-badge badge-pink">🏆 全部完成 +100分</span>
-      </div>
-    </div>
-
-    <div class="card card-accent">
-      <h3 style="font-size:18px;font-weight:700;margin-bottom:12px;">培训开始前请准备好</h3>
-      <div class="bullet-list">
-        <li>登录WorkBuddy平台（如果还没登录，请举手找讲师帮忙）</li>
-        <li>准备一个你本周或下周要上的真实课题</li>
-        <li>如果方便的话，用手机拍一页你要用的教材</li>
-        <li>准备好和同组老师交流的心态</li>
-      </div>
-    </div>
-  </div>
-
   <div class="my-task-banner" id="myTaskBanner">
     <h3 id="bannerTitle">我的任务</h3>
     <p id="bannerDesc"></p>
-    <a href="javascript:goSection('mytask')" class="task-link">查看我的任务提示词 →</a>
-  </div>
-
-  <div class="card card-highlight">
-    <h3 style="font-size:18px;font-weight:700;margin-bottom:16px;">今天你会完成什么</h3>
-    <div class="step-list">
-      <li><strong>学会写提示词</strong>——不是和AI聊天，而是给AI下教学任务</li>
-      <li><strong>亲手操作WorkBuddy</strong>——上传教材、生成教案、做出分层任务单</li>
-      <li><strong>打造教研智能体</strong>——用vibe coding串联知识库和技能，建一个持续进化的校本教研助手</li>
-      <li><strong>带走一套AI教学能力</strong>——从一个提示词到一个教研智能体，下周就能用</li>
+    <div class="task-banner-actions">
+      <a href="javascript:goSection('mytask')" class="task-link">查看任务提示词 -></a>
+      <a href="javascript:goSection('activitySection')" class="task-link muted">继续当前关卡</a>
     </div>
   </div>
 
-  <div class="card card-success">
-    <h3 style="font-size:18px;font-weight:700;margin-bottom:12px;">游戏化学习激励</h3>
-    <p style="font-size:14px;color:var(--gray-600);margin-bottom:12px;">完成每个步骤获得积分，升级头衔，解锁徽章，参与排行榜！</p>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;">
-      <span class="section-badge badge-orange">🎯 完成步骤 +10分</span>
-      <span class="section-badge badge-purple">⚡ 上半场完成 +30分</span>
-      <span class="section-badge badge-green">🏁 下半场完成 +50分</span>
-      <span class="section-badge badge-pink">🏆 全部完成 +100分</span>
+  <div class="card card-highlight intro-card">
+    <div class="intro-card-top">
+      <div>
+        <h1 class="section-title">AI赋能教学实操培训</h1>
+        <p class="section-subtitle">先选一个真实教学任务，再跟着关卡做出一份下周能用的教学成品。</p>
+      </div>
+      <button class="copy-btn intro-primary" onclick="goSection('choose')">先选任务</button>
+    </div>
+    <div class="flow-steps">
+      <div class="flow-step"><strong>1. 选任务</strong><span>从5个教学场景里选一个最贴近你本周工作的任务。</span></div>
+      <div class="flow-step"><strong>2. 跟关卡做</strong><span>完成5个认知关和8个实操关，边学边复制模板。</span></div>
+      <div class="flow-step"><strong>3. 拿成品</strong><span>产出教案、任务单、PBL方案、PPT或学情文案。</span></div>
     </div>
   </div>
 
-  <div class="card card-accent">
-    <h3 style="font-size:18px;font-weight:700;margin-bottom:12px;">培训开始前请准备好</h3>
-    <div class="bullet-list">
-      <li>登录WorkBuddy平台（如果还没登录，请举手找讲师帮忙）</li>
-      <li>准备一个你本周或下周要上的真实课题</li>
-      <li>如果方便的话，用手机拍一页你要用的教材</li>
-      <li>准备好和同组老师交流的心态</li>
+  <div class="support-strip">
+    <div>
+      <strong>开始前准备</strong>
+      <span>登录WorkBuddy，准备一个真实课题；如果有教材页，先拍照备用。</span>
     </div>
+    <button class="complete-btn" onclick="goSection('help')">卡住了怎么办</button>
   </div>
 
   <!-- 任务选择 -->
@@ -298,23 +260,24 @@
 <!-- Step 3 -->
 <div class="section" id="act3">
   <div class="card card-highlight">
-    <div class="card-header"><div class="card-title"><span class="section-badge badge-blue">第三步 · 28-40分钟</span> 认识WorkBuddy的五种能力</div><button class="complete-btn" onclick="APP.toggleComplete(3)">完成 +10分</button></div>
+    <div class="card-header"><div class="card-title"><span class="section-badge badge-blue">第三步 · 28-40分钟</span> 认识WorkBuddy这个通用智能体工作台</div><button class="complete-btn" onclick="APP.toggleComplete(3)">完成 +10分</button></div>
     <div class="info-box"><strong>这一步你只需要看和听。</strong>讲师会演示WorkBuddy能做什么，你重点理解每种能力能帮你解决什么教学问题。</div>
     <div style="display:grid;gap:16px;margin:16px 0;">
-      <div style="background:var(--surface);border:1px solid var(--gray-200);border-radius:var(--radius);padding:20px;border-left:4px solid var(--primary);"><h4 style="font-size:16px;font-weight:700;margin-bottom:8px;">① 对话即任务</h4><p style="font-size:14px;color:var(--gray-600);">你说什么，AI就做什么。不需要搭建，开口就说。</p></div>
-      <div style="background:var(--surface);border:1px solid var(--gray-200);border-radius:var(--radius);padding:20px;border-left:4px solid var(--primary);"><h4 style="font-size:16px;font-weight:700;margin-bottom:8px;">② 文件即知识库</h4><p style="font-size:14px;color:var(--gray-600);">上传教材PDF，AI就基于你的教材来回答，不凭空编造。</p></div>
-      <div style="background:var(--surface);border:1px solid var(--gray-200);border-radius:var(--radius);padding:20px;border-left:4px solid var(--primary);"><h4 style="font-size:16px;font-weight:700;margin-bottom:8px;">③ 一段话串流程</h4><p style="font-size:14px;color:var(--gray-600);">"先分析错题，再生成讲解，最后出练习"——一句话，AI自动分步完成。</p></div>
-      <div style="background:var(--surface);border:1px solid var(--gray-200);border-radius:var(--radius);padding:20px;border-left:4px solid var(--primary);"><h4 style="font-size:16px;font-weight:700;margin-bottom:8px;">④ 成品直接出</h4><p style="font-size:14px;color:var(--gray-600);">不只是聊天文字，AI能直接生成可下载的文件。</p></div>
-      <div style="background:var(--accent-light);border:1px solid var(--accent-border);border-radius:var(--radius);padding:20px;border-left:4px solid var(--accent);"><h4 style="font-size:16px;font-weight:700;margin-bottom:8px;color:var(--accent-strong);">⑤ 技能即工具箱（重点！）</h4><p style="font-size:14px;color:var(--accent-strong);">内置PPT/Excel/Word/PDF/图片等技能，一句话就能生成可下载的文件成品。这是<strong>你下半场要用的核心能力</strong>。</p></div>
+      <div style="background:var(--surface);border:1px solid var(--gray-200);border-radius:var(--radius);padding:20px;border-left:4px solid var(--primary);"><h4 style="font-size:16px;font-weight:700;margin-bottom:8px;">① 自然语言交任务</h4><p style="font-size:14px;color:var(--gray-600);">把目标说清楚，WorkBuddy会理解需求、拆解步骤、持续执行，而不是只回答一句建议。</p></div>
+      <div style="background:var(--surface);border:1px solid var(--gray-200);border-radius:var(--radius);padding:20px;border-left:4px solid var(--primary);"><h4 style="font-size:16px;font-weight:700;margin-bottom:8px;">② 资料与本地文件处理</h4><p style="font-size:14px;color:var(--gray-600);">围绕教材、课标、教案、学生反馈、成绩表等真实资料工作，支持备课、分析和改写。</p></div>
+      <div style="background:var(--surface);border:1px solid var(--gray-200);border-radius:var(--radius);padding:20px;border-left:4px solid var(--primary);"><h4 style="font-size:16px;font-weight:700;margin-bottom:8px;">③ 多模型与专家协同</h4><p style="font-size:14px;color:var(--gray-600);">不同任务调用不同模型和专家能力，调研、内容生成、数据分析、教学设计可以并行推进。</p></div>
+      <div style="background:var(--surface);border:1px solid var(--gray-200);border-radius:var(--radius);padding:20px;border-left:4px solid var(--primary);"><h4 style="font-size:16px;font-weight:700;margin-bottom:8px;">④ Skills 与连接器扩展</h4><p style="font-size:14px;color:var(--gray-600);">通过技能和生态连接，把对话延伸到PPT、Word、Excel、图片、知识库和办公协作工具。</p></div>
+      <div style="background:var(--accent-light);border:1px solid var(--accent-border);border-radius:var(--radius);padding:20px;border-left:4px solid var(--accent);"><h4 style="font-size:16px;font-weight:700;margin-bottom:8px;color:var(--accent-strong);">⑤ 可验证的教学工作流交付</h4><p style="font-size:14px;color:var(--accent-strong);">对老师最有价值的是交付可检查、可修改、可带走的成果：教案、课件、任务单、错题表、学情报告。<strong>教师仍负责判断与把关</strong>。</p></div>
     </div>
-    <h4 style="font-weight:700;margin:20px 0 12px;">技能速查表</h4>
-    <div class="skill-grid">
-      <div class="skill-card"><div class="skill-icon">📊</div><div class="skill-name">PPT生成</div><div class="skill-format">.pptx 演示文稿</div><div class="skill-scenes">教学课件、公开课PPT、班会PPT</div><div class="skill-trigger">说 <strong>"做成PPT"</strong></div></div>
-      <div class="skill-card"><div class="skill-icon">📈</div><div class="skill-name">Excel生成</div><div class="skill-format">.xlsx 电子表格</div><div class="skill-scenes">错题分析表、成绩统计、练习清单</div><div class="skill-trigger">说 <strong>"做成Excel"</strong></div></div>
-      <div class="skill-card"><div class="skill-icon">📄</div><div class="skill-name">Word文档</div><div class="skill-format">.docx 文档</div><div class="skill-scenes">教案文档、家长信、教研报告</div><div class="skill-trigger">说 <strong>"做成Word"</strong></div></div>
-      <div class="skill-card"><div class="skill-icon">📑</div><div class="skill-name">PDF生成</div><div class="skill-format">.pdf 文档</div><div class="skill-scenes">学情报告、PBL方案、可打印资料</div><div class="skill-trigger">说 <strong>"做成PDF"</strong></div></div>
-      <div class="skill-card"><div class="skill-icon">🎨</div><div class="skill-name">图片生成</div><div class="skill-format">.png/.jpg 图片</div><div class="skill-scenes">课件配图、PBL情境图、对话场景图</div><div class="skill-trigger">说 <strong>"生成一张图片"</strong></div></div>
-    </div>
+    <h4 style="font-weight:700;margin:20px 0 12px;">可开发的教学 Skills 清单</h4>
+    <div class="table-wrap"><table><thead><tr><th>优先级</th><th>候选 Skill</th><th>解决的真实需求</th><th>老师需要提供</th><th>建议输出</th></tr></thead><tbody>
+      <tr><td><strong>A</strong></td><td>新课标教案+分层任务单</td><td>备课、分层教学、公开课准备</td><td>年级、课题、课标目标、班情、教材页</td><td>教案、问题串、三层任务单、评价量规</td></tr>
+      <tr><td><strong>A</strong></td><td>错题诊断+补救练习</td><td>知识漏洞定位、薄弱点讲解、变式训练</td><td>错题统计、典型答案、知识点标签</td><td>错因排序、讲解稿、例题、分层练习</td></tr>
+      <tr><td><strong>A/B</strong></td><td>PBL项目设计器</td><td>传统文化、地方素材、跨学科项目学习</td><td>主题、学科、课时、地方资源、成果要求</td><td>驱动问题、任务链、资料包、分工、量规</td></tr>
+      <tr><td><strong>A</strong></td><td>家校沟通+学情总结</td><td>家长信、阶段性学情报告、班主任沟通</td><td>学生表现、数据、教师观察、沟通对象</td><td>事实型家长信、鼓励建议、班级学情报告</td></tr>
+      <tr><td><strong>B</strong></td><td>课堂问题串+互动题</td><td>课堂导入、追问、随堂测和节奏调整</td><td>教学目标、前测结果、重难点、课堂条件</td><td>递进问题串、互动题、追问、板书节奏</td></tr>
+    </tbody></table></div>
+    <div class="tip-box"><strong>判断标准：</strong>重复出现、输入结构稳定、输出能被教师审核和复用的需求，才值得沉淀成 Skill。</div>
   </div>
   <div id="resources_act3"></div>
 </div>
@@ -387,65 +350,69 @@
 <!-- Step 7 -->
 <div class="section" id="act7">
   <div class="card card-accent">
-    <div class="card-header"><div class="card-title"><span class="section-badge badge-orange">第七步 · 25-40分钟</span> 设计你的专属技能：把经验变成可复用的"AI助手"</div><button class="complete-btn" onclick="APP.toggleComplete(7)">完成 +10分</button></div>
-    <div class="quote quote-accent"><strong>这是整场培训最让你惊喜的一步。</strong>你已经会用平台内置的技能了——现在，把你自己的专业经验，设计成一个<strong>专属技能</strong>，让AI每次都按你的标准做事。</div>
+    <div class="card-header"><div class="card-title"><span class="section-badge badge-orange">第七步 · 25-40分钟</span> 体验设计一个新 Skill：新课标教案+分层任务单</div><button class="complete-btn" onclick="APP.toggleComplete(7)">完成 +10分</button></div>
+    <div class="quote quote-accent"><strong>这一步不是让AI临时写一份教案。</strong>你要体验如何把一套备课方法设计成 Skill，让AI以后每次都按同一套标准工作。</div>
 
-    <div class="info-box"><strong>什么是"专属技能"？</strong>把你反复在用的教学经验（比如你的教案审核标准、你的分层出题套路、你的家长信风格），写成一套清晰的指令模板。写好之后，<strong>以后一句话就能触发，AI自动按你的标准执行</strong>——不用每次都重新描述一遍。</div>
+    <div class="info-box"><strong>什么是 Skill 设计？</strong>把重复任务拆成“触发方式、输入模板、执行规则、输出模板、质量检查”。设计好之后，你只要说一句“用新课标教案 Skill”，AI就知道该问什么、怎么做、按什么格式交付。</div>
 
-    <h4 style="font-weight:700;margin:20px 0 8px;">为什么要设计专属技能？</h4>
+    <h4 style="font-weight:700;margin:20px 0 8px;">这个 Skill 要解决什么问题？</h4>
     <div class="step-list accent">
-      <li><strong>把经验固化下来</strong>——你的教学智慧不再只存在脑子里，而是变成AI能反复执行的标准流程</li>
-      <li><strong>一次设计，永久复用</strong>——设计好后，每次备课、出题、写文案都能一键调用</li>
-      <li><strong>分享给团队</strong>——把好技能分享给同组、同校老师，让整个教研组都用同一套高质量标准</li>
+      <li><strong>减少重复交代</strong>——不用每次都重新说明“要有课标、学情、流程、分层任务、评价量规”</li>
+      <li><strong>提高输出稳定性</strong>——每次都按同一套输入字段和输出结构生成，便于老师审核</li>
+      <li><strong>沉淀团队经验</strong>——教研组可以共同打磨一套适合本校的备课标准</li>
     </div>
 
-    <h4 style="font-weight:700;margin:20px 0 8px;">设计专属技能的三步法</h4>
-    <div class="step-list">
-      <li><strong>找到你反复在做的事</strong><p style="font-size:14px;color:var(--gray-600);margin-top:4px;">想想哪些教学任务你每次都要重复交代同样的要求？比如"分层出题总是要强调基础5题+发展4题+挑战3题"。</p></li>
-      <li><strong>把要求写成清晰的指令模板</strong><p style="font-size:14px;color:var(--gray-600);margin-top:4px;">用提示词的方式，把你的标准、流程、输出格式写成一个完整的"技能说明书"。</p></li>
-      <li><strong>给技能起个名字，以后一句话触发</strong><p style="font-size:14px;color:var(--gray-600);margin-top:4px;">比如命名为"我的分层出题"，以后只需说"用我的分层出题技能"，AI就按你的标准执行。</p></li>
-    </div>
+    <h4 style="font-weight:700;margin:20px 0 8px;">Skill 说明书</h4>
+    <div class="table-wrap"><table><thead><tr><th>模块</th><th>本案例怎么设计</th></tr></thead><tbody>
+      <tr><td><strong>技能名称</strong></td><td>新课标教案+分层任务单</td></tr>
+      <tr><td><strong>触发方式</strong></td><td>用“新课标教案 Skill”帮我设计一课时教案和三层任务单</td></tr>
+      <tr><td><strong>输入模板</strong></td><td>年级学科、教材版本、课题、课标/核心素养、班情、已有基础、常见困难、课时、教材页或资料</td></tr>
+      <tr><td><strong>执行规则</strong></td><td>缺关键资料先追问；不编造教材内容；目标、活动、评价、分层任务必须互相对应</td></tr>
+      <tr><td><strong>输出模板</strong></td><td>基本信息、学习目标、重难点、教学流程、三层任务单、评价量规、教师检查清单</td></tr>
+    </tbody></table></div>
 
-    <h4 style="font-weight:700;margin:20px 0 8px;">实操：设计你的第一个专属技能</h4>
-    <p style="font-size:14px;color:var(--gray-600);margin-bottom:8px;">从下面挑一个最贴合你的场景，复制对应模板到WorkBuddy，按提示补全你的标准：</p>
+    <h4 style="font-weight:700;margin:20px 0 8px;">实操一：复制下面的提示词，创建 Skill</h4>
+    <div class="prompt-block"><div class="prompt-header"><span class="prompt-label">创建 Skill：新课标教案+分层任务单 · 点击复制</span><button class="copy-btn" onclick="APP.copyPrompt(this)">复制</button></div><div class="prompt-code">请帮我创建一个名为“新课标教案+分层任务单”的教学 Skill。
 
-    <div class="prompt-block"><div class="prompt-header"><span class="prompt-label">技能模板1：我的教案审核标准 · 点击复制</span><button class="copy-btn" onclick="APP.copyPrompt(this)">复制</button></div><div class="prompt-code">请帮我创建一个名为"我的教案审核"的专属技能。
-这个技能的作用：每次我上传或粘贴一份教案，你都要按以下我的专属标准审核：
+【触发方式】
+当我说“用新课标教案 Skill”时，请自动按下面流程工作。
 
-我的审核标准（请帮我补全并细化）：
-1. 学习目标：必须包含[新课标核心素养，请填写你学科的具体素养]
-2. 学情匹配：必须考虑[本班学生的薄弱点，请填写]
-3. 分层任务：必须有基础/发展/挑战三层，且[我的分层要求，请填写]
-4. 评价标准：必须[可量化/可操作，我的要求是：请填写]
+【必须收集的输入】
+年级学科、教材版本、课题、课标目标或核心素养、本班学情、已有基础、常见困难、课时长度、教材页/资料。
+如果缺少课题、年级学科、学情、课时这四项，请先追问，不要直接生成。
 
-请把这套标准整理成一份清晰的技能说明书，以后我叫"审核教案"你就按这个执行。</div></div>
+【执行规则】
+1. 不编造教材细节；资料不足时标注“基于当前信息的假设”。
+2. 学习目标要可观察、可评价，不写空泛口号。
+3. 教学活动必须对应目标，问题串要递进。
+4. 分层任务分为基础、发展、挑战三层，不降低基础层的尊严感。
+5. 输出最后必须给教师检查清单，提醒我审核准确性和班级适配性。
 
-    <div class="prompt-block"><div class="prompt-header"><span class="prompt-label">技能模板2：我的分层出题套路 · 点击复制</span><button class="copy-btn" onclick="APP.copyPrompt(this)">复制</button></div><div class="prompt-code">请帮我创建一个名为"我的分层出题"的专属技能。
-这个技能的作用：我说一个知识点，你就按我固定的套路出题：
+【输出模板】
+一、基本信息
+二、学习目标：知识理解、能力方法、核心素养
+三、重点难点
+四、教学流程表：环节、教师活动、学生活动、关键问题、评价方式、用时
+五、分层任务单：基础层、发展层、挑战层；每层含目标、任务、提示、评价标准、预计用时
+六、评价量规
+七、教师检查清单
 
-我的出题套路：
-- 基础层：[5]道基础题，覆盖核心知识点，[我的基础题要求：请填写]
-- 发展层：[4]道应用题，需要迁移理解，[我的发展题要求：请填写]
-- 挑战层：[3]道综合题，需要多步推理，[我的挑战题要求：请填写]
-- 每道题附答案和解析
-- 难度要[适合我班学生的水平，请填写]
+请先把这份 Skill 说明书整理出来，再给我一个测试用例。</div></div>
 
-请把这套标准整理成技能说明书，以后我说"分层出题"你就按这个执行。</div></div>
+    <h4 style="font-weight:700;margin:20px 0 8px;">实操二：用一个测试任务验证 Skill</h4>
+    <div class="prompt-block"><div class="prompt-header"><span class="prompt-label">测试指令 · 点击复制</span><button class="copy-btn" onclick="APP.copyPrompt(this)">复制</button></div><div class="prompt-code">请用“新课标教案 Skill”处理下面这个任务：
 
-    <div class="prompt-block"><div class="prompt-header"><span class="prompt-label">技能模板3：我的家长信风格 · 点击复制</span><button class="copy-btn" onclick="APP.copyPrompt(this)">复制</button></div><div class="prompt-code">请帮我创建一个名为"我的家长信"的专属技能。
-这个技能的作用：每次我告诉你一件事，你就帮我写一封符合我个人风格的家长信：
+年级学科：小学四年级语文
+教材版本：统编版
+课题：《爬山虎的脚》
+本班学情：学生能读懂课文大意，但观察性语言积累弱，表达时容易空泛
+课时：40分钟
+重点：理解作者连续细致观察的方法
+输出：一课时教案 + 三层任务单 + 评价量规</div></div>
 
-我的风格要求：
-- 语气：[温暖、鼓励、不贴负面标签，请按需调整]
-- 结构：先说事实，再说进步，最后给一个具体的下一步建议
-- 字数：[家长信不超过300字 / 微信群消息不超过100字，请选择]
-- 绝不：[给学生贴标签 / 用命令语气，请补充你的底线]
+    <div class="tip-box"><strong>测试时看三件事：</strong><div class="bullet-list" style="margin-top:8px;"><li>它是否先检查输入是否完整</li><li>目标、活动、评价和分层任务是否互相对应</li><li>输出是否能被老师直接审核和修改，而不是泛泛建议</li></div></div>
 
-请把这套风格整理成技能说明书，以后我说"写家长信"你就按这个执行。</div></div>
-
-    <div class="tip-box"><strong>设计完专属技能后，你可以：</strong><div class="bullet-list" style="margin-top:8px;"><li>马上测试它——说一句"用我的XX技能"，看AI是否按你的标准执行</li><li>持续优化它——不满意就告诉AI"调整我的XX技能，把XX标准改成XX"</li><li>分享给同事——把你设计好的技能说明发给同组老师，他们也能用</li></div></div>
-
-    <div class="warn-box"><strong>重要提醒：</strong>专属技能是你教学经验的沉淀，它越用越准。但记住——AI执行的是你定的标准，<strong>标准本身的质量决定了产出的质量</strong>。所以设计技能时，把你的专业判断写清楚、写具体。</div>
+    <div class="warn-box"><strong>重要提醒：</strong>Skill 的价值不在于一次生成，而在于稳定复用。第一次结果不好，就继续改 Skill 说明书，而不是只改这一份教案。</div>
   </div>
   <div id="resources_act7"></div>
 </div>
@@ -527,8 +494,19 @@
 <!-- 排行榜 -->
 <div class="section" id="leaderboard">
   <div class="section-header"><div class="section-badge badge-blue">我的成长</div><h2 class="section-title">📊 排行榜</h2></div>
-  <p class="section-subtitle">看看你的学习进度在全体学员中的排名</p>
+  <p class="section-subtitle">辅助查看全班进展。先完成自己的任务成品，再看排名。</p>
   <div id="leaderboardContainer"><div class="leaderboard-empty"><p>加载中...</p></div></div>
+</div>
+
+<!-- 卡住帮助 -->
+<div class="section" id="help">
+  <div class="section-header"><div class="section-badge badge-orange">现场帮助</div><h2 class="section-title">卡住了怎么办</h2></div>
+  <p class="section-subtitle">培训现场优先解决继续学习的问题，不在一个错误上停太久。</p>
+  <div class="help-grid">
+    <div class="help-item"><strong>还没选任务</strong><span>回到任务选择区，选最接近你本周真实课堂的一个任务。</span><button class="complete-btn" onclick="goSection('choose')">去选任务</button></div>
+    <div class="help-item"><strong>不知道下一步</strong><span>回到当前关卡，按页面里的完成标准做完，再进入下一关。</span><button class="complete-btn" onclick="goSection('activitySection')">回到关卡</button></div>
+    <div class="help-item"><strong>复制或登录失败</strong><span>先举手找讲师；也可以长按提示词手动选择复制，避免卡在工具操作上。</span><button class="complete-btn" onclick="goSection('mytask')">看任务提示词</button></div>
+  </div>
 </div>
 
 <!-- 我的任务提示词 -->
@@ -553,17 +531,17 @@
 <!-- 技能指南 -->
 <div class="section" id="skillguide">
   <div class="section-header"><div class="section-badge badge-blue">资源库</div><h2 class="section-title">技能使用指南</h2></div>
-  <p class="section-subtitle">技能是WorkBuddy最重要的能力——一句话生成可下载文件成品</p>
+  <p class="section-subtitle">技能不是文件格式按钮，而是把高频教学需求沉淀成可复用工作流</p>
   <div class="card card-accent">
-    <div class="quote quote-accent"><strong>核心理念：先用对话把内容做对，再用技能把成品做出来。</strong></div>
-    <div class="step-list accent"><li><strong>先把内容用对话生成</strong>——教案、错题分析、PBL方案等</li><li><strong>告诉AI你要什么格式</strong>——"请把以上内容做成PPT/Excel/Word/PDF"</li><li><strong>等AI生成完成，下载文件，打开检查</strong>——不满意就告诉AI改哪里</li></div>
+    <div class="quote quote-accent"><strong>核心理念：先把真实需求讲清楚，再把重复任务沉淀成 Skill。</strong></div>
+    <div class="step-list accent"><li><strong>看需求是否高频</strong>——多位老师反复需要，才值得做成 Skill</li><li><strong>看输入是否稳定</strong>——年级、课题、班情、数据、材料等信息能被标准化填写</li><li><strong>看输出是否可审核</strong>——教案、任务单、学情报告等成果必须由老师检查后使用</li></div>
   </div>
   <div id="skillDetailsContainer"></div>
   <div class="card"><h4 style="font-weight:700;margin-bottom:12px;">关键提醒</h4><div class="table-wrap"><table><thead><tr><th>提醒</th><th>说明</th></tr></thead><tbody>
-    <tr><td><strong>先有内容，再出成品</strong></td><td>技能是把已有内容转成文件。先在对话中把内容写好，再调用技能出成品</td></tr>
-    <tr><td><strong>一份内容，多种格式</strong></td><td>同一份教案可以生成Word版存档、PPT版上课、PDF版分享</td></tr>
-    <tr><td><strong>生成后必须检查</strong></td><td>下载后打开看：内容对不对？格式好不好？需要手动调整吗？</td></tr>
-    <tr><td><strong>不满意就追加指令</strong></td><td>"PPT再加一页板书设计""Excel多加一列难度等级"——直接说</td></tr>
+    <tr><td><strong>不是所有需求都要做成 Skill</strong></td><td>一次性问题适合直接对话；高频、稳定、可复用的任务才适合沉淀</td></tr>
+    <tr><td><strong>输入要标准化</strong></td><td>一个好 Skill 要明确让老师填什么，例如课题、班情、教材、学生数据</td></tr>
+    <tr><td><strong>输出要能落地</strong></td><td>成果要能被老师检查、修改、带进课堂，而不是只给一段泛泛建议</td></tr>
+    <tr><td><strong>教师仍然把关</strong></td><td>Skill 提高效率，但教学判断、内容准确性和课堂适配仍由教师负责</td></tr>
   </tbody></table></div></div>
 </div>
 
@@ -631,10 +609,10 @@
 </footer>
 
 <!-- 脚本加载（顺序重要） -->
-<script src="./assets/gamify.js"></script>
-<script src="./assets/api.js"></script>
-<script src="./assets/auth.js"></script>
-<script src="./assets/app.js"></script>
+<script src="./assets/gamify.js?v=20260628b"></script>
+<script src="./assets/api.js?v=20260628b"></script>
+<script src="./assets/auth.js?v=20260628b"></script>
+<script src="./assets/app.js?v=20260628b"></script>
 <script>
 // 初始化
 APP.init();

@@ -4,6 +4,11 @@ const API = (function() {
   let mode = 'offline'; // 'online' | 'offline'
   let baseUrl = '';
   let token = null;
+  const appBasePath = (() => {
+    const path = window.location.pathname || '';
+    if (path === '/aibootcamp' || path.startsWith('/aibootcamp/')) return '/aibootcamp';
+    return '';
+  })();
 
   // ===== localStorage 键名 =====
   const KEYS = {
@@ -21,6 +26,8 @@ const API = (function() {
   }
   function lsSet(key, val) { try { localStorage.setItem(key, JSON.stringify(val)); } catch(e) {} }
 
+  token = lsGet(KEYS.TOKEN, null);
+
   // 简单哈希（离线弱安全，仅本地使用）
   function simpleHash(str) {
     let h = 0;
@@ -32,14 +39,18 @@ const API = (function() {
 
   // ===== 后端探测 =====
   async function detectBackend() {
-    // 尝试同源
+    // 子路径部署时，优先探测当前应用所在前缀
     const candidates = [];
-    if (window.location.protocol.startsWith('http')) candidates.push(window.location.origin);
+    if (window.location.protocol.startsWith('http')) {
+      const currentBase = window.location.origin + appBasePath;
+      candidates.push(currentBase);
+      candidates.push(window.location.origin);
+    }
     candidates.push('http://localhost:8000');
     const saved = lsGet(KEYS.BACKEND_URL, null);
     if (saved) candidates.unshift(saved);
 
-    for (const url of candidates) {
+    for (const url of [...new Set(candidates)]) {
       try {
         const ctrl = new AbortController();
         const tid = setTimeout(() => ctrl.abort(), 2000);
